@@ -1,2 +1,26 @@
-.vs
+.vs/
 Academic-Management-System/.vs/Academic_Management_System/v17
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+bin/
+obj/
+*.nuget.props
+*.nuget.targets
+Packages/
+
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+build/
+[Bb]in/
+
+[Tt]humbs.db
+*.log
+*.vspscc
+*.vssscc
+
+# Resharper files
+_ReSharper.*
