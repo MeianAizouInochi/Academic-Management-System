@@ -1,12 +1,90 @@
-﻿<Window x:Class="AMS.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:AMS"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+﻿<Window
+    x:Class="AMS.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:AMS"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:views="clr-namespace:AMS.Views"
+    Title="AMS"
+    Width="1000"
+    Height="600"
+    MinWidth="675"
+    MinHeight="350"
+    MaxWidth="1000"
+    MaxHeight="600"
+    AllowsTransparency="True"
+    Background="Transparent"
+    ResizeMode="CanResizeWithGrip"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="None"
+    mc:Ignorable="d">
+
+    <Grid x:Name="All_Mother_Grid">
+
+        <Border
+            Background="#241650"
+            BorderBrush="#FFFFFF"
+            BorderThickness="0"
+            CornerRadius="20,20,0,20">
+
+            <Grid x:Name="Container_Child_Grid">
+
+                <Grid.RowDefinitions>
+
+                    <RowDefinition Height="auto" />
+
+                    <RowDefinition Height="*" />
+
+                </Grid.RowDefinitions>
+
+                <Grid x:Name="Title_Functionality_Row" Grid.Row="0">
+
+                    <Grid.ColumnDefinitions>
+
+                        <ColumnDefinition Width="*" />
+
+                        <ColumnDefinition Width="auto" />
+
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock
+                        x:Name="Title_Text"
+                        Grid.Column="0"
+                        Margin="0,15,0,0"
+                        HorizontalAlignment="Center"
+                        FontSize="24"
+                        Foreground="White"
+                        Text="ACADEMIC MANAGEMENT SYSTEM" />
+
+                    <Grid Grid.Column="1" Margin="0,15,30,0">
+
+                        <Border
+                            Background="Transparent"
+                            BorderBrush="Transparent"
+                            BorderThickness="0">
+
+                            <Button
+                                x:Name="Exit_Button"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                Command="{Binding ExitApplication}"
+                                Content="X"
+                                FontSize="24"
+                                Foreground="White" />
+
+                        </Border>
+
+                    </Grid>
+
+                </Grid>
+
+                <views:AMSView Grid.Row="1" />
+
+            </Grid>
+
+        </Border>
 
     </Grid>
+
 </Window>
