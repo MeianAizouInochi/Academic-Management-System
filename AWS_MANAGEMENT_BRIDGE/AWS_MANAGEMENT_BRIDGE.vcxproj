@@ -140,6 +140,11 @@
   <ItemGroup>
     <Image Include="app.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AWS_MANAGEMENT_BASE\AWS_MANAGEMENT_BASE.vcxproj">
+      <Project>{3ac3e4f3-bbbb-456d-a182-3151c3b8c2d6}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

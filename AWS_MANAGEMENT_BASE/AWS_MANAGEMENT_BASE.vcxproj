@@ -78,11 +78,13 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(ProjectDir)AWS_SDK\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
+      <AdditionalLibraryDirectories>$(ProjectDir)AWS_SDK\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -108,15 +110,18 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;AWSMANAGEMENTBASE_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_WINDOWS;_USRDLL;WIN32;USE_IMPORT_EXPORT;AWS_SDK_VERSION_MAJOR=1;AWS_SDK_VERSION_MINOR=11;AWS_SDK_VERSION_PATCH=13;USE_WINDOWS_DLL_SEMANTICS;USE_IMPORT_EXPORT=1;AWS_CRT_CPP_USE_IMPORT_EXPORT;AWS_HTTP_USE_IMPORT_EXPORT;AWS_IO_USE_IMPORT_EXPORT;AWS_USE_IO_COMPLETION_PORTS;AWS_COMMON_USE_IMPORT_EXPORT;AWS_CAL_USE_IMPORT_EXPORT;AWS_COMPRESSION_USE_IMPORT_EXPORT;AWS_MQTT_USE_IMPORT_EXPORT;AWS_MQTT_WITH_WEBSOCKETS;AWS_AUTH_USE_IMPORT_EXPORT;AWS_SDKUTILS_USE_IMPORT_EXPORT;AWS_CHECKSUMS_USE_IMPORT_EXPORT;AWS_EVENT_STREAM_USE_IMPORT_EXPORT;AWS_S3_USE_IMPORT_EXPORT;AWSMANAGEMENTBASE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(ProjectDir)AWS_SDK\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
+      <AdditionalLibraryDirectories>$(ProjectDir)AWS_SDK\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>aws-c-auth.lib;aws-c-cal.lib;aws-c-common.lib;aws-c-compression.lib;aws-c-event-stream.lib;aws-checksums.lib;aws-c-http.lib;aws-c-io.lib;aws-c-mqtt.lib;aws-cpp-sdk-core.lib;aws-cpp-sdk-s3.lib;aws-crt-cpp.lib;aws-c-s3.lib;aws-c-sdkutils.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
