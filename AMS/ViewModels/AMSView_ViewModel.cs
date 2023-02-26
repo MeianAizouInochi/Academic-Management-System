@@ -18,25 +18,29 @@ namespace AMS.ViewModels
 
         public ICommand? ExitApplication { get; }
 
+        
+
         public AMSView_ViewModel()
         {
-            directoryManager_ViewModel = new DirectoryManager_ViewModel();
+            List<string>? Folders = null;
 
-            docxModifier_ViewModel = new DocxModifier_ViewModel();
+            
 
             //Debuging section start
 
             Entity e = new Entity();
+
             if (e.CreateS3Connection() == 1)
             {
                 e.ListBucketS3();
-                List<string> list = new List<string>(e.ListObjectsS3());
+
+                Folders = new List<string>(e.ListObjectsS3());
                 //for (int j = 0; j < list.Count; j++)
                 //{
                 //    Console.WriteLine(list[j]);
                 //}
 
-                MessageBox.Show(list.Count().ToString());
+                MessageBox.Show(Folders.Count().ToString());
 
             }
             else
@@ -46,6 +50,9 @@ namespace AMS.ViewModels
             }
             e.CloseConnection();
 
+            directoryManager_ViewModel = new DirectoryManager_ViewModel(Folders);
+
+            docxModifier_ViewModel = new DocxModifier_ViewModel();
             //Debuging section end
         }
     }

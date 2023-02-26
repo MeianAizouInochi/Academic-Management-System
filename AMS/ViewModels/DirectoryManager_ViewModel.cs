@@ -16,16 +16,25 @@ namespace AMS.ViewModels
 
         public ICommand? GotoParentDirectory { get; }
 
-        public DirectoryManager_ViewModel()
+        public DirectoryManager_ViewModel(List<string> Folders)
         {
-            _directoryManager_DirectoryListItem_ViewModels = new ObservableCollection<DirectoryManager_DirectoryListItem_ViewModel>
+            ObservableCollection<DirectoryManager_DirectoryListItem_ViewModel>? Temp = new ObservableCollection<DirectoryManager_DirectoryListItem_ViewModel>();
+
+            foreach (var folder in Folders) 
             {
-                new DirectoryManager_DirectoryListItem_ViewModel("Folder1"),
+                Temp.Add(new DirectoryManager_DirectoryListItem_ViewModel(folder));
+            }
 
-                new DirectoryManager_DirectoryListItem_ViewModel("Folder2"),
+            _directoryManager_DirectoryListItem_ViewModels= Temp;
 
-                new DirectoryManager_DirectoryListItem_ViewModel("Folder3")
-            };
+            //_directoryManager_DirectoryListItem_ViewModels = new ObservableCollection<DirectoryManager_DirectoryListItem_ViewModel>
+            //{
+            //    new DirectoryManager_DirectoryListItem_ViewModel("Folder1"),
+
+            //    new DirectoryManager_DirectoryListItem_ViewModel("Folder2"),
+
+            //    new DirectoryManager_DirectoryListItem_ViewModel("Folder3")
+            //};
 
         }
     }

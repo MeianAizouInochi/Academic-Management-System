@@ -8,7 +8,7 @@ namespace AWS_MANAGEMENT_BRIDGE {
 	public ref class ManagedObject
 	{
 
-	protected:
+	public:
 		T* M_Instance;
 
 	public:
@@ -24,13 +24,13 @@ namespace AWS_MANAGEMENT_BRIDGE {
 			}
 		}
 
-		!ManagedObject()//THIS THING IS CALLED BY GARBAGE COLLECTOR
-		{
-			if (M_Instance != nullptr)
-			{
-				delete M_Instance;
-			}
-		}
+		//!ManagedObject()//THIS THING IS CALLED BY GARBAGE COLLECTOR
+		//{
+		//	if (M_Instance != nullptr)
+		//	{
+		//		delete M_Instance;
+		//	}
+		//}
 
 		T* GetInstance()
 		{
