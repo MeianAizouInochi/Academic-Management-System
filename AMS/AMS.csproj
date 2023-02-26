@@ -13,4 +13,8 @@
     <PackageReference Include="Open-XML-SDK" Version="2.9.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\AWS_MANAGEMENT_BRIDGE\AWS_MANAGEMENT_BRIDGE.vcxproj" />
+  </ItemGroup>
+
 </Project>
