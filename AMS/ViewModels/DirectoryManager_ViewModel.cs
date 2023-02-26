@@ -18,13 +18,14 @@ namespace AMS.ViewModels
 
         public DirectoryManager_ViewModel()
         {
-            _directoryManager_DirectoryListItem_ViewModels = new ObservableCollection<DirectoryManager_DirectoryListItem_ViewModel>();
+            _directoryManager_DirectoryListItem_ViewModels = new ObservableCollection<DirectoryManager_DirectoryListItem_ViewModel>
+            {
+                new DirectoryManager_DirectoryListItem_ViewModel("Folder1"),
 
-            _directoryManager_DirectoryListItem_ViewModels.Add(new DirectoryManager_DirectoryListItem_ViewModel("Folder1"));
+                new DirectoryManager_DirectoryListItem_ViewModel("Folder2"),
 
-            _directoryManager_DirectoryListItem_ViewModels.Add(new DirectoryManager_DirectoryListItem_ViewModel("Folder2"));
-
-            _directoryManager_DirectoryListItem_ViewModels.Add(new DirectoryManager_DirectoryListItem_ViewModel("Folder3"));
+                new DirectoryManager_DirectoryListItem_ViewModel("Folder3")
+            };
 
         }
     }

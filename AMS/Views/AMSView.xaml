@@ -9,7 +9,7 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
-    
+
     <Grid x:Name="Child_Grid" ShowGridLines="false">
 
         <Grid.ColumnDefinitions>
@@ -33,4 +33,5 @@
             DataContext="{Binding docxModifier_ViewModel}" />
 
     </Grid>
+
 </UserControl>

@@ -165,7 +165,8 @@
                                     Padding="5"
                                     VerticalAlignment="Center"
                                     Background="Transparent"
-                                    BorderThickness="0">
+                                    BorderThickness="0"
+                                    Command="{Binding GotoParentDirectory}">
 
                                     <Grid>
                                         <Grid.ColumnDefinitions>
@@ -271,11 +272,39 @@
                                             <dropdownmenucontrol:DropdownMenu Grid.Column="1" Margin="10,0,10,0">
 
                                                 <Border
-                                                    Background="Black"
-                                                    BorderBrush="White"
-                                                    BorderThickness="1">
+                                                    Background="#7c30ff"
+                                                    BorderBrush="Black"
+                                                    BorderThickness="1.5"
+                                                    CornerRadius="5">
 
-                                                    <TextBlock Foreground="White" Text="ww" />
+                                                    <StackPanel MinWidth="100">
+
+                                                        <Button
+                                                            Margin="0,0,0,0"
+                                                            Padding="10"
+                                                            HorizontalAlignment="Stretch"
+                                                            Background="Transparent"
+                                                            BorderThickness="0"
+                                                            Command="{Binding MoveCommand}"
+                                                            Content="Move"
+                                                            Cursor="Hand"
+                                                            Foreground="White" />
+
+                                                        <Button
+                                                            Margin="0,0,0,0"
+                                                            Padding="10"
+                                                            HorizontalAlignment="Stretch"
+                                                            Background="Transparent"
+                                                            BorderBrush="Transparent"
+                                                            BorderThickness="0"
+                                                            Command="{Binding DeleteCommand}"
+                                                            Content="Delete"
+                                                            Cursor="Hand"
+                                                            Foreground="White" />
+
+                                                    </StackPanel>
+
+
 
                                                 </Border>
 
