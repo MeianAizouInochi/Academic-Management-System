@@ -2,9 +2,40 @@
 
 using namespace System;
 
-namespace AWSMANAGEMENTBRIDGE {
-	public ref class Class1
+namespace AWS_MANAGEMENT_BRIDGE {
+	template<class T>
+
+	public ref class ManagedObject
 	{
-		// TODO: Add your methods for this class here.
+
+	protected:
+		T* M_Instance;
+
+	public:
+		ManagedObject(T* instance)
+			: M_Instance(instance)
+		{}
+
+		virtual ~ManagedObject()//DESTRUCTOR
+		{
+			if (M_Instance != nullptr)
+			{
+				delete M_Instance;
+			}
+		}
+
+		!ManagedObject()//THIS THING IS CALLED BY GARBAGE COLLECTOR
+		{
+			if (M_Instance != nullptr)
+			{
+				delete M_Instance;
+			}
+		}
+
+		T* GetInstance()
+		{
+			return M_Instance;
+		}
+
 	};
 }
