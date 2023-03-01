@@ -7,7 +7,6 @@
 #include <aws/core/auth/AWSCredentials.h>
 #include <aws/s3/S3EndpointProvider.h>
 #include "AwsConnector.h"
-#include <fstream>
 #include <vector>
 
 namespace core
@@ -34,13 +33,11 @@ namespace core
 		config.region = Aws::Region::AP_SOUTH_1;
 		try
 		{
-			std::cout << "Came in try block" << std::endl;
 			auto s3_client = Aws::MakeShared<Aws::S3::S3Client>("s3client", credentials, endpointProvider, config);
 			s3clientRef = s3_client;
 		}
 		catch (...)
 		{
-			std::cout << "S3 connection not made" << std::endl;
 			return 0;
 		}
 		return 1;
@@ -48,15 +45,12 @@ namespace core
 
 	AwsConnector::~AwsConnector()
 	{
-		std::cout << "Destructor is called !" << std::endl;
+		s3clientRef = nullptr;
 		ShutdownAPI(options);
 	}
 
 	std::vector<std::string> AwsConnector::ListObjects()
 	{
-		std::fstream fio;
-		fio.open("LISTOFOBJECTS.txt", std::ios::in);
-		std::cout << "CAme after s3 client" << std::endl;
 
 		Aws::S3::Model::ListObjectsV2Request request;
 		request.WithBucket("ams-test-bucket1");
@@ -72,16 +66,9 @@ namespace core
 			Aws::Vector<Aws::S3::Model::Object> objects =
 				outcome.GetResult().GetContents();
 
-			std::cout << "No of objects in the bucket ?" << outcome.GetResult().GetKeyCount() << std::endl;
-			std::cout << "No of objects in the bucket ?" << outcome.GetResult().GetKeyCount() << std::endl;
-
 			for (Aws::S3::Model::Object& object : objects) {
 
-				std::cout << object.GetKey() << std::endl;
-
 				result.push_back(object.GetKey());
-
-				objects.erase(objects.begin(), objects.begin() + 1);
 
 			}
 		}
@@ -96,26 +83,21 @@ namespace core
 		return result;
 	}
 
-	int AwsConnector::ListBukcet()
+	std::vector<std::string> AwsConnector::ListBukcet()
 	{
+		std::vector<std::string> result;
 
 		auto outcome = s3clientRef->ListBuckets();
 
 		if (outcome.IsSuccess())
 		{
-			std::cout << "NO OF BUCKETS" << outcome.GetResult().GetBuckets().size() << "\n";
-			std::cout << "id of the owner" << outcome.GetResult().GetOwner().GetID() << "\n";
-			std::cout << "Name of the owner" << outcome.GetResult().GetOwner().GetDisplayName() << "\n";
-			std::cout << "outcome was a success ?" << outcome.IsSuccess() << " \n";
 			for (auto&& b : outcome.GetResult().GetBuckets())
 			{
-				std::cout << b.GetName() << std::endl;
+				result.push_back(b.GetName());
 			}
-			return 1;
+			return result;
 		}
-		else
-		{
-			return 0;
-		}
+
+		return result;
 	}
 }
