@@ -14,7 +14,7 @@ namespace AWS_MANAGEMENT_BRIDGE
 		Entity();
 		int CreateS3Connection();
 		array<String^>^ ListObjectsS3();
-		int ListBucketS3();
+		array<String^>^ ListBucketS3();
 		void CloseConnection();
 	};
 }

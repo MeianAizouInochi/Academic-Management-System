@@ -15,7 +15,7 @@ namespace core
 
 		std::vector<std::string> ListObjects();
 
-		int ListBukcet();
+		std::vector<std::string> ListBukcet();
 
 		int CreateS3Connection();
 
