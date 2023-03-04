@@ -8,7 +8,7 @@ using System.Windows.Input;
 
 namespace AMS.ViewModels
 {
-    public class DirectoryManager_ViewModel
+    public class DirectoryManager_ViewModel:ViewModelMother
     {
         private readonly ObservableCollection<DirectoryManager_DirectoryListItem_ViewModel>? _directoryManager_DirectoryListItem_ViewModels;
 

@@ -10,7 +10,7 @@ using DocumentFormat.OpenXml.Vml.Office;
 
 namespace AMS.ViewModels
 {
-    public class AMSView_ViewModel
+    public class AMSView_ViewModel:ViewModelMother
     {
         public DirectoryManager_ViewModel directoryManager_ViewModel { get; }
 

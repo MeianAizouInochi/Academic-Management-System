@@ -7,7 +7,7 @@ using System.Windows.Input;
 
 namespace AMS.ViewModels
 {
-    public class DirectoryManager_DirectoryListItem_ViewModel
+    public class DirectoryManager_DirectoryListItem_ViewModel:ViewModelMother
     {
         public string? File_or_Folder_Name { get; }
 
