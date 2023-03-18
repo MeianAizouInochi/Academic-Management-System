@@ -27,13 +27,11 @@ namespace core
 
 	int AwsConnector::CreateS3Connection()
 	{
-		std::shared_ptr<Aws::S3::S3EndpointProviderBase> endpointProvider = Aws::MakeShared<Aws::S3::S3EndpointProvider>("asas");
-		Aws::Auth::AWSCredentials credentials("AKIAT4U4GUL6XSLEXLPW", "8Wd4HIoQeWfshMsq/nCdNvCYQkT9nejBl8+wRiKc");
 		Aws::Client::ClientConfiguration config;
 		config.region = Aws::Region::AP_SOUTH_1;
 		try
 		{
-			auto s3_client = Aws::MakeShared<Aws::S3::S3Client>("s3client", credentials, endpointProvider, config);
+			auto s3_client = Aws::MakeShared<Aws::S3::S3Client>("s3client", config);
 			s3clientRef = s3_client;
 		}
 		catch (...)
