@@ -27,7 +27,7 @@ namespace AMS
             */
             MainWindow = new MainWindow()
             {
-                DataContext = new AMSView_ViewModel()
+                DataContext = new MainViewModel()
             };
 
             MainWindow.Show();

@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace AMS.ViewsSubComponents
+namespace AMS.Views
 {
     /// <summary>
-    /// Interaction logic for DirectoryManager.xaml
+    /// Interaction logic for HomeView.xaml
     /// </summary>
-    public partial class DirectoryManager : UserControl
+    public partial class HomeView : UserControl
     {
-        public DirectoryManager()
+        public HomeView()
         {
             InitializeComponent();
         }
