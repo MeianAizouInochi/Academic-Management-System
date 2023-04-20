@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace AMS.Views
 {
     /// <summary>
-    /// Interaction logic for HomeView.xaml
+    /// Interaction logic for UserInterfaceSideNavigationView.xaml
     /// </summary>
-    public partial class HomeView : UserControl
+    public partial class UserInterfaceSideNavigationView : UserControl
     {
-        public HomeView()
+        public UserInterfaceSideNavigationView()
         {
             InitializeComponent();
         }

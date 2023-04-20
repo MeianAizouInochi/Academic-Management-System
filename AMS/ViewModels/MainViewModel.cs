@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AMS.Store;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,13 +7,24 @@ using System.Threading.Tasks;
 
 namespace AMS.ViewModels
 {
-    class MainViewModel:ViewModelBase
+    public class MainViewModel:ViewModelBase
     {
-        public ViewModelBase CurrentViewModel { get; }
 
-        public MainViewModel()
+        public NavigationStore navigationStore;
+
+        public ViewModelBase CurrentViewModel => navigationStore.CurrentViewModel;
+
+        public MainViewModel(NavigationStore navigationstore)
         {
-            CurrentViewModel = new HomeViewModel();
+            navigationStore = navigationstore;
+
+            navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
         }
+
+        private void OnCurrentViewModelChanged()
+        {
+            OnPropertyChanged(nameof(CurrentViewModel));
+        }
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using AMS.ViewModels;
+﻿using AMS.Store;
+using AMS.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -20,14 +21,13 @@ namespace AMS
          */
         protected override void OnStartup(StartupEventArgs e)
         {
-            /*
-            * This is a Property inside Application class which is inherited by App class.
-            * This property is getting initialized inside the overrided method OnStartup of Application class.
-            * MainWindow Property is an object of Window Class.
-            */
+            NavigationStore navigationStore = new NavigationStore();
+
+            navigationStore.CurrentViewModel = new LoginViewModel(navigationStore);
+
             MainWindow = new MainWindow()
             {
-                DataContext = new MainViewModel()
+                DataContext = new MainViewModel(navigationStore)
             };
 
             MainWindow.Show();

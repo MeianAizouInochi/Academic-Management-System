@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AMS.Models
+namespace AMS.ViewModels
 {
-    public class SODCM_CRUD
+    public class UserTimeTableViewModel:ViewModelBase
     {
+
     }
 }

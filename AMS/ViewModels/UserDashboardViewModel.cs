@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AMS.Models
+namespace AMS.ViewModels
 {
-    public class SSV_RR
+    public class UserDashboardViewModel:ViewModelBase
     {
+
     }
 }
