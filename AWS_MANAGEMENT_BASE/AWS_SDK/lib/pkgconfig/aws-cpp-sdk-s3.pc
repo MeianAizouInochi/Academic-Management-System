@@ -3,7 +3,7 @@ libdir=C:/Program Files (x86)/aws-cpp-sdk-all/lib
 
 Name: aws-cpp-sdk-s3
 Description: 
-Version: 1.11.13
+Version: 1.11.41
 Cflags: -I${includedir} 
 Libs: -L${libdir} -laws-cpp-sdk-s3 
 Libs.private: 

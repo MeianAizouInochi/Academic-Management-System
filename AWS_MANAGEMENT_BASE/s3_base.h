@@ -3,19 +3,19 @@
 #include <iostream>
 #include <vector>
 
-namespace core
+namespace base
 {
-	class __declspec(dllexport) AwsConnector
+	class __declspec(dllexport) s3_base
 	{
 	public:
 
-		AwsConnector();
+		s3_base() {};
 
-		~AwsConnector();
+		~s3_base();
 
 		std::vector<std::string> ListObjects();
 
-		std::vector<std::string> ListBukcet();
+		std::vector<std::string> ListBucket();
 
 		int CreateS3Connection();
 
