@@ -8,10 +8,10 @@ using namespace System;
 
 namespace AWS_MANAGEMENT_BRIDGE
 {
-	public ref class Entity : public ManagedObject<core::AwsConnector>
+	public ref class S3_BRIDGE : public ManagedObject<base::s3_base>
 	{
 	public:
-		Entity();
+		S3_BRIDGE();
 		int CreateS3Connection();
 		array<String^>^ ListObjectsS3();
 		array<String^>^ ListBucketS3();

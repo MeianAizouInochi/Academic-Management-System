@@ -1,4 +1,4 @@
-#include "Entity.h"
+#include "S3_BRIDGE.h"
 #include <vector>
 
 namespace AWS_MANAGEMENT_BRIDGE
@@ -9,13 +9,13 @@ namespace AWS_MANAGEMENT_BRIDGE
 	it to the ManagedObject classtemplate(M_Instance) , so that it can store the pointer of the newly created 
 	object of the AwsConnector class
 	*/
-	Entity::Entity() : ManagedObject(new core::AwsConnector()){}
+	S3_BRIDGE::S3_BRIDGE() : ManagedObject(new base::s3_base()){}
 
 
 	/*This function creates creates a s3client connection and pass a int value (o)False or (1)True
 	* if the connection making was failed or successful.
 	*/
-	int Entity::CreateS3Connection()
+	int S3_BRIDGE::CreateS3Connection()
 	{
 
 		int value = M_Instance->CreateS3Connection();
@@ -28,7 +28,7 @@ namespace AWS_MANAGEMENT_BRIDGE
 	/*This Function return a .net Datatype so that it can be consumed by C# application
 	this function list all the objects present in a S3bucket 
 	*/
-	array<String^>^ Entity::ListObjectsS3()
+	array<String^>^ S3_BRIDGE::ListObjectsS3()
 	{
 
 		//getting data from the ListObjects() function in the AwsConnector class in form of a vector.
@@ -55,9 +55,9 @@ namespace AWS_MANAGEMENT_BRIDGE
 	}
 
 	/*This function list all the buckets*/
-	array<String^>^ Entity::ListBucketS3()
+	array<String^>^ S3_BRIDGE::ListBucketS3()
 	{
-		std::vector<std::string> Temp_vector = M_Instance->ListBukcet();
+		std::vector<std::string> Temp_vector = M_Instance->ListBucket();
 		int size = Temp_vector.size();
 		array<String^>^ Array_of_Buckets = gcnew array<String^>(size);
 
@@ -70,9 +70,9 @@ namespace AWS_MANAGEMENT_BRIDGE
 	}
 
 	/*This function closes the connection to s3client and also shuts down the sdk*/
-	void Entity::CloseConnection()
+	void S3_BRIDGE::CloseConnection()
 	{
-		M_Instance->~AwsConnector();
+		M_Instance->~s3_base();
 		M_Instance = nullptr;
 	}
 

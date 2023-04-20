@@ -121,13 +121,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AWS_MANAGEMENT_BRIDGE.h" />
-    <ClInclude Include="Entity.h" />
+    <ClInclude Include="DYNAMODB_BRIDGE.h" />
+    <ClInclude Include="S3_BRIDGE.h" />
     <ClInclude Include="Resource.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
     <ClCompile Include="AWS_MANAGEMENT_BRIDGE.cpp" />
-    <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="DYNAMODB_BRIDGE.cpp" />
+    <ClCompile Include="S3_BRIDGE.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="app.rc" />
