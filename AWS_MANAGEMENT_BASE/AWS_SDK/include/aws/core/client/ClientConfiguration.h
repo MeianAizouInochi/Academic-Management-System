@@ -46,6 +46,20 @@ namespace Aws
         };
 
         /**
+         * This setting is an enumeration, not a boolean, to allow for future expansion.
+         */
+        enum class UseRequestCompression
+        {
+          DISABLE,
+          ENABLE,
+        };
+
+        struct RequestCompressionConfig {
+          UseRequestCompression useRequestCompression=UseRequestCompression::ENABLE;
+          size_t requestMinCompressionSizeBytes = 10240;
+        };
+
+        /**
          * This mutable structure is used to configure any of the AWS clients.
          * Default values can only be overwritten prior to passing to the client constructors.
          */
@@ -56,15 +70,18 @@ namespace Aws
             /**
              * Create a configuration based on settings in the aws configuration file for the given profile name.
              * The configuration file location can be set via the environment variable AWS_CONFIG_FILE
+             * @param profileName the aws profile name.
+             * @param shouldDisableIMDS whether or not to disable IMDS calls.
              */
-            ClientConfiguration(const char* profileName);
+            ClientConfiguration(const char* profileName, bool shouldDisableIMDS = false);
 
             /**
              * Create a configuration with a predefined smart defaults
              * @param useSmartDefaults, required to differentiate c-tors
              * @param defaultMode, default mode to use
+             * @param shouldDisableIMDS whether or not to disable IMDS calls.
              */
-            explicit ClientConfiguration(bool useSmartDefaults, const char* defaultMode = "legacy");
+            explicit ClientConfiguration(bool useSmartDefaults, const char* defaultMode = "legacy", bool shouldDisableIMDS = false);
 
             /**
              * User Agent string user for http calls. This is filled in for you in the constructor. Don't override this unless you have a really good reason.
@@ -265,7 +282,19 @@ namespace Aws
             Aws::String profileName;
 
             /**
-             * A helper function to read config value from env variable of aws profile config
+             * Request compression configuration
+             * To use this feature, the service needs to provide the support, and the compression
+             * algorithms needs to be available at SDK build time.
+             */
+            Aws::Client::RequestCompressionConfig requestCompressionConfig;
+
+            /**
+             * Disable all internal IMDS Calls
+             */
+            bool disableIMDS = false;
+
+            /**
+             * A helper function to read config value from env variable or aws profile config
              */
             static Aws::String LoadConfigFromEnvOrProfile(const Aws::String& envKey,
                                                           const Aws::String& profile,

@@ -1,6 +1,4 @@
 
-#include <aws/core/Aws.h>
-#include <aws/core/utils/logging/LogLevel.h>
 #include <aws/s3/S3Client.h>
 #include <aws/s3/model/ListObjectsV2Request.h>
 #include <iostream>
@@ -13,17 +11,6 @@ namespace core
 {
 
 	std::shared_ptr<Aws::S3::S3Client> s3clientRef;
-
-	Aws::SDKOptions options;
-
-	AwsConnector::AwsConnector()
-	{
-
-		options.loggingOptions.logLevel = Aws::Utils::Logging::LogLevel::Info; // This creates log file , highly helpful!
-
-		InitAPI(options);
-
-	}
 
 	int AwsConnector::CreateS3Connection()
 	{
@@ -44,7 +31,6 @@ namespace core
 	AwsConnector::~AwsConnector()
 	{
 		s3clientRef = nullptr;
-		ShutdownAPI(options);
 	}
 
 	std::vector<std::string> AwsConnector::ListObjects()
