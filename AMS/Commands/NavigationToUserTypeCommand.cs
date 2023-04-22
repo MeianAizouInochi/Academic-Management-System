@@ -28,6 +28,7 @@ namespace AMS.Commands
             if (loginViewModel.Username.Equals("student"))
             {
                 Console.WriteLine("Good to go!");
+
                 loginViewModel.LoggedIn = true;
 
                 InternalMenuNavigationStore internalMenuNavigationStore = new InternalMenuNavigationStore();

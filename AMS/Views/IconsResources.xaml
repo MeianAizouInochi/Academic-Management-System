@@ -1,0 +1,43 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    x:Name="IconResources">
+
+    <Viewbox
+        x:Key="UserProfileImageDefaultIcon"
+        Width="auto"
+        Height="auto">
+
+        <Border BorderBrush="red" BorderThickness="1">
+
+            <Canvas
+                Name="svg10"
+                Width="116"
+                Height="117">
+                <!--  Unknown tag: sodipodi:namedview  -->
+                <Path
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    Name="path2"
+                    Data="M58 116.086C26.5169 116.086 0.90625 90.2545 0.90625 58.5C0.90625 26.7455 26.5169 0.914062 58 0.914062C89.4831 0.914062 115.094 26.7455 115.094 58.5C115.094 90.2545 89.4831 116.086 58 116.086Z"
+                    Fill="#ffffff" />
+                <Path
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    Name="path4"
+                    Data="M58 1.82812C88.9829 1.82812 114.188 27.25 114.188 58.5C114.188 89.75 88.9829 115.172 58 115.172C27.0171 115.172 1.8125 89.75 1.8125 58.5C1.8125 27.25 27.0171 1.82812 58 1.82812ZM58 0C25.9659 0 0 26.1897 0 58.5C0 90.8103 25.9659 117 58 117C90.0341 117 116 90.8103 116 58.5C116 26.1897 90.0341 0 58 0Z"
+                    Fill="#FFD6D6D6" />
+                <Path
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    Name="path6"
+                    Data="M58.0001 53.9589C65.7219 53.9589 71.9817 47.7712 71.9817 40.1383C71.9817 32.5054 65.7219 26.3177 58.0001 26.3177C50.2782 26.3177 44.0184 32.5054 44.0184 40.1383C44.0184 47.7712 50.2782 53.9589 58.0001 53.9589Z"
+                    Fill="#FF4C2A74" />
+                <Path
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    Name="path8"
+                    Data="M82.1498 82.4082C82.1498 69.2238 71.3364 58.5366 58 58.5366C44.6637 58.5366 33.8503 69.2238 33.8503 82.4082H82.1498Z"
+                    Fill="#FF4C2A74" />
+            </Canvas>
+        </Border>
+
+    </Viewbox>
+
+</ResourceDictionary>

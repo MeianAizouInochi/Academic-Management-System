@@ -9,7 +9,6 @@ namespace AMS.ViewModels
 {
     public class MainViewModel:ViewModelBase
     {
-
         public NavigationStore navigationStore;
 
         public ViewModelBase CurrentViewModel => navigationStore.CurrentViewModel;

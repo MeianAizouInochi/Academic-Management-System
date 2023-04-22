@@ -18,8 +18,4 @@
     <ProjectReference Include="..\AWS_MANAGEMENT_BRIDGE\AWS_MANAGEMENT_BRIDGE.vcxproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
-
 </Project>
