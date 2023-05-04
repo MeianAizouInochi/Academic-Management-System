@@ -1,10 +1,14 @@
-﻿using AMS.Store;
+﻿using AMS.AMSExceptions;
+using AMS.Models;
+using AMS.Models.DataAccessTemp;
+using AMS.Store;
 using AMS.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace AMS.Commands
 {
@@ -25,21 +29,22 @@ namespace AMS.Commands
         {
             /*Perform Temporary Verification*/
 
-            if (loginViewModel.Username.Equals("student"))
-            {
-                Console.WriteLine("Good to go!");
+            AwsDataAccessUserDetails awsDataAccessUserDetails = new AwsDataAccessUserDetails(new BasicUserDetails(), loginViewModel.Username, loginViewModel.Password);
 
-                loginViewModel.LoggedIn = true;
+            try
+            {
+                awsDataAccessUserDetails.GetData();
 
                 InternalMenuNavigationStore internalMenuNavigationStore = new InternalMenuNavigationStore();
 
-                internalMenuNavigationStore.CurrentSelectedFeatureViewModel = new UserDashboardViewModel();
+                internalMenuNavigationStore.CurrentSelectedFeatureViewModel = new UserDashboardViewModel((BasicUserDetails)awsDataAccessUserDetails.DataObject);
 
-                navigationStore.CurrentViewModel = new StudentViewModel(internalMenuNavigationStore);
+                navigationStore.CurrentViewModel = new StudentViewModel(internalMenuNavigationStore,(BasicUserDetails)awsDataAccessUserDetails.DataObject);
             }
-
-
-
+            catch (AMSError_Exceptions ex) 
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

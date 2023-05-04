@@ -1,4 +1,5 @@
 ﻿using AMS.Commands;
+using AMS.Models;
 using AMS.Store;
 using System;
 using System.Collections.Generic;
@@ -19,11 +20,11 @@ namespace AMS.ViewModels
 
         public ViewModelBase CurrentSelectedFeatureViewModel => internalMenuNavigationStore.CurrentSelectedFeatureViewModel;
 
-        public StudentViewModel(InternalMenuNavigationStore internalmenuNavigationStore)
+        public StudentViewModel(InternalMenuNavigationStore internalmenuNavigationStore, BasicUserDetails basicUserDetails)
         {
             internalMenuNavigationStore = internalmenuNavigationStore;
 
-            NavigateToDashBoardCommand = new NavigationToStudentDashboardCommand(internalmenuNavigationStore);
+            NavigateToDashBoardCommand = new NavigationToStudentDashboardCommand(internalmenuNavigationStore,basicUserDetails);
 
             NavigateToTimeTableCommand = new NavigationToStudentTimeTableCommand(internalmenuNavigationStore);
 

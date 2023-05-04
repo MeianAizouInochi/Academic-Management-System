@@ -13,10 +13,5 @@ namespace AMS.Models
         public string? Password;
         public string? UserType;
         public string? Batch;
-
-        public BasicUserDetails()
-        {
-            UserName = "Koustav Kar";
-        }
     }
 }

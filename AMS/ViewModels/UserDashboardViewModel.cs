@@ -24,12 +24,9 @@ namespace AMS.ViewModels
             }
         }
 
-        public UserDashboardViewModel()
+        public UserDashboardViewModel(BasicUserDetails basicUserDetails)
         {
-            BasicUserDetails userDetails = new BasicUserDetails();
-
-
-
+            // TODO: Set the details from basicUserDetails to UI
         }
 
 

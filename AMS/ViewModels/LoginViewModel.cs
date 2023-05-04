@@ -48,38 +48,11 @@ namespace AMS.ViewModels
 
             }
         }
-
-        private bool loggedIn = true;
-
-        public bool LoggedIn
-        {
-            get
-            {
-                return loggedIn;
-            }
-
-            set
-            {
-                loggedIn = value;
-
-                //call a function if value is false.
-                if (value == false)
-                {
-                    ShowLogInFailedMessage();
-                }
-            }
-        }
-
         public ICommand LoginCommand { get; }
 
         public LoginViewModel(NavigationStore navigationstore)
         {
             LoginCommand = new NavigationToUserTypeCommand(this, navigationstore);
-        }
-
-        private void ShowLogInFailedMessage()
-        {
-            MessageBox.Show("LoggedIn Failed.");
         }
     }
 }
