@@ -5,6 +5,7 @@
 #include "../AWS_MANAGEMENT_BASE/core.h"
 
 using namespace System;
+using namespace System::Collections::Generic;
 
 namespace AWS_MANAGEMENT_BRIDGE
 {
@@ -14,7 +15,7 @@ namespace AWS_MANAGEMENT_BRIDGE
 		DYNAMODB_BRIDGE();
 		int CreateDynamoDBConnection();
 		array<String^>^ ListTables();
-		array<String^>^ GetItems(String^ tablename, String^ partitionkey, String^ partitionvalue);
+		Dictionary<String^,String^>^ GetItems(String^ tablename, String^ partitionkey, String^ partitionvalue);
 		void CloseConnection();
 	};
 }

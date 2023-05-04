@@ -2,6 +2,7 @@
 #include "dynamodb_base.h"
 #include <string>
 #include <vector>
+#include <map>
 
 //DYNAMO DB HEADER FILES.
 #include <aws/dynamodb/DynamoDBClient.h>
@@ -41,12 +42,35 @@ namespace base
         DynamoDB_clientRef = nullptr;
     }
 
-    std::vector<std::string> dynamodb_base::GetItems(const std::string tableName,
+    std::string AWSDynamoDbResultParser(Aws::DynamoDB::Model::ValueType obj, Aws::DynamoDB::Model::AttributeValue val)
+    {
+        //type of enums NUMBER, BYTEBUFFER, STRING_SET, NUMBER_SET, BYTEBUFFER_SET, ATTRIBUTE_MAP, ATTRIBUTE_LIST, BOOL, NULLVALUE
+        switch (obj)
+        {
+        case Aws::DynamoDB::Model::ValueType::STRING:
+            return val.GetS();
+            break;
+        case Aws::DynamoDB::Model::ValueType::NUMBER:
+            return val.GetN();
+            break;
+        case Aws::DynamoDB::Model::ValueType::BOOL:
+            return val.GetB() == 1 ? "TRUE" : "FALSE";
+            break;
+        case Aws::DynamoDB::Model::ValueType::NULLVALUE:
+            return "";
+            break;
+        default:
+            return "error";
+        }
+    }
+
+    std::map<std::string, std::string>* dynamodb_base::GetItems(const std::string tableName,
         const std::string partitionKey,
         const std::string partitionValue) {
         Aws::DynamoDB::Model::GetItemRequest request;
 
-        std::vector<std::string> result;
+        //base map
+        std::map<std::string, std::string>* map_base = new std::map<std::string, std::string>;
 
         // Set up the request.
         request.SetTableName(tableName);
@@ -60,23 +84,27 @@ namespace base
             // Reference the retrieved fields/values.
             const Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue>& item = outcome.GetResult().GetItem();
             if (!item.empty()) {
-
+                map_base->insert(std::make_pair("ExecCode", "1"));
                 // Output each retrieved field and its value.
                 for (const auto& i : item)
                 {
-                    result.push_back(i.first + " : " + i.second.SerializeAttribute());
+                    map_base->insert(std::make_pair(i.first, AWSDynamoDbResultParser(i.second.GetType(), i.second)));
                 }
-
+                map_base->insert(std::make_pair("ErrorMessage", ""));
             }
             else {
-                return { "No item found with the key " };
+                map_base->insert(std::make_pair("ExecCode", "-1"));
+                map_base->insert(std::make_pair("ErrorMessage", "User Not found , try contacting your CC"));
+                return map_base;
             }
         }
         else {
-            return { "failed to get item" };
+            map_base->insert(std::make_pair("ExecCode", "0"));
+            map_base->insert(std::make_pair("ErrorMessage", "Connectivity error , please try again later"));
+            return map_base;
         }
 
-        return result;
+        return map_base;
     }
 
 

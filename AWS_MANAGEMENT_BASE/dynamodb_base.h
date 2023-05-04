@@ -2,6 +2,7 @@
 
 #include <string>
 #include <vector>
+#include <map>
 
 namespace base
 {
@@ -15,7 +16,7 @@ namespace base
 
 		std::vector<std::string> ListTables();
 
-		std::vector<std::string> GetItems(const std::string tableName,
+		std::map<std::string, std::string>* GetItems(const std::string tableName,
 			const std::string partitionKey,
 			const std::string partitionValue);
 
