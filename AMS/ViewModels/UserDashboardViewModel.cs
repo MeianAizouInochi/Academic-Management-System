@@ -10,23 +10,42 @@ namespace AMS.ViewModels
 {
     public class UserDashboardViewModel:ViewModelBase
     {
-        private ObservableCollection<UserDashboardProfileInfoDetailsListItemViewModel> userDashboardProfileInfoDetailsList;
-        
-        public ObservableCollection<UserDashboardProfileInfoDetailsListItemViewModel> UserDashboardProfileInfoDetailsLists 
+        //private ObservableCollection<UserDashboardProfileInfoDetailsListItemViewModel> userDashboardProfileInfoDetailsList;
+
+        //public ObservableCollection<UserDashboardProfileInfoDetailsListItemViewModel> UserDashboardProfileInfoDetailsLists 
+        //{
+        //    get 
+        //    {
+        //        return userDashboardProfileInfoDetailsList;
+        //    }
+        //    set 
+        //    { 
+        //        userDashboardProfileInfoDetailsList = value;
+        //    }
+        //}
+
+        private string Name = "";
+
+        public string NameText
         {
-            get 
+            get
             {
-                return userDashboardProfileInfoDetailsList;
+                return Name;
             }
-            set 
-            { 
-                userDashboardProfileInfoDetailsList = value;
+
+            set
+            {
+                OnPropertyChanged(nameof(NameText));
             }
         }
+
+
 
         public UserDashboardViewModel(BasicUserDetails basicUserDetails)
         {
             // TODO: Set the details from basicUserDetails to UI
+
+            NameText = basicUserDetails.UserName;
         }
 
 

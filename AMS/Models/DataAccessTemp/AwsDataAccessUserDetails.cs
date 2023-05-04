@@ -33,10 +33,17 @@ namespace AMS.Models.DataAccessTemp
 
             Dictionary<string, string> dic = new Dictionary<string, string>();
 
+            Console.WriteLine(AWSParams[0]);
+
             DYNAMODB_BRIDGE dYNAMODB_BRIDGE = new DYNAMODB_BRIDGE();
             if(dYNAMODB_BRIDGE.CreateDynamoDBConnection()==1)
             {
                 dic = dYNAMODB_BRIDGE.GetItems("users_student", "id", AWSParams[0]);
+            }
+
+            foreach (string keys in dic.Keys)
+            {
+                Console.WriteLine(keys + ":" + dic[keys]);
             }
 
             if (dic["ExecCode"].Equals("1"))
