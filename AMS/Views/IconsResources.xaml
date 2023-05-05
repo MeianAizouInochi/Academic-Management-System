@@ -8,7 +8,7 @@
         Width="auto"
         Height="auto">
 
-        <Border BorderBrush="red" BorderThickness="1">
+        <Border BorderBrush="Transparent" BorderThickness="1">
 
             <Canvas
                 Name="svg10"

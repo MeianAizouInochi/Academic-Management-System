@@ -34,12 +34,396 @@
 
             </Grid.ColumnDefinitions>
 
-            <Grid Grid.Column="0" Margin="10,10,10,10">
+            <ScrollViewer>
+                <Grid Grid.Column="0" Margin="10,10,10,10">
 
-                <Border Background="#876AFA" CornerRadius="15" />
+                    <Border Background="#876AFA" CornerRadius="15" >
+                        <Grid>
 
-            </Grid>
+                            <Grid.RowDefinitions>
 
+                                <RowDefinition Height="auto"  />
+
+                                <RowDefinition Height="auto" />
+
+                                <RowDefinition Height="auto" />
+
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+
+                                <RowDefinition Height="auto" />
+
+                                <RowDefinition Height="auto" />
+
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+
+                                <RowDefinition Height="auto" />
+
+                                <RowDefinition Height="auto" />
+
+                                <RowDefinition Height="auto" />
+
+
+                            </Grid.RowDefinitions>
+
+
+
+                            <Grid Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+
+                                    <ColumnDefinition Width="0.4*" />
+                                    <ColumnDefinition Width="0.6*" />
+
+                                </Grid.ColumnDefinitions>
+
+                                <Label
+                                            Grid.Column="0"
+                                            Grid.ColumnSpan="1"
+                                                
+                                            Margin="0,0,0,0"
+                                            VerticalAlignment="Top"
+                                            BorderBrush="transparent"
+                                            BorderThickness="1"
+                                            Content="RollNo : "
+                                            FontSize="25"
+                                            Foreground="White" />
+
+                                <TextBlock
+                                            Grid.Column="1"
+                                            VerticalAlignment="Center"
+                                            Foreground="White"
+                                 FontSize="25"
+                                            Text="{Binding userName}" />
+
+                            </Grid>
+
+                            <Grid Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+
+                                    <ColumnDefinition Width="0.4*" />
+                                    <ColumnDefinition Width="0.6*" />
+
+                                </Grid.ColumnDefinitions>
+
+                                <Label
+                                            Grid.Column="0"
+                                            Grid.ColumnSpan="1"
+                                             FontSize="25"
+                                            Margin="0,0,0,0"
+                                            VerticalAlignment="Top"
+                                            BorderBrush="transparent"
+                                            BorderThickness="1"
+                                            Content="Name :"
+                                            Foreground="White" />
+
+                                <TextBlock
+                                            Grid.Column="1"
+                                 FontSize="25"
+                                            VerticalAlignment="Center"
+                                            Foreground="White"
+                                            Text="{Binding name}" />
+
+                            </Grid>
+
+                            <Grid Grid.Row="2">
+                                <Grid.ColumnDefinitions>
+
+                                    <ColumnDefinition Width="0.4*" />
+                                    <ColumnDefinition Width="0.6*" />
+
+                                </Grid.ColumnDefinitions>
+
+                                <Label
+                                            Grid.Column="0"
+                                            Grid.ColumnSpan="1"
+                                             FontSize="25"
+                                            Margin="0,0,0,0"
+                                            VerticalAlignment="Top"
+                                            BorderBrush="transparent"
+                                            BorderThickness="1"
+                                            Content="Course :"
+                                            Foreground="White" />
+
+                                <TextBlock
+                                            Grid.Column="1"
+                                            VerticalAlignment="Center"
+                                 FontSize="25"
+                                            Foreground="White"
+                                            Text="{Binding course}" />
+
+                            </Grid>
+                            <Grid Grid.Row="3">
+                                <Grid.ColumnDefinitions>
+
+                                    <ColumnDefinition Width="0.4*" />
+                                    <ColumnDefinition Width="0.6*" />
+
+                                </Grid.ColumnDefinitions>
+
+                                <Label
+                                            Grid.Column="0"
+                                            Grid.ColumnSpan="1"
+                                           FontSize="25" 
+                                            Margin="0,0,0,0"
+                                            VerticalAlignment="Top"
+                                            BorderBrush="transparent"
+                                            BorderThickness="1"
+                                            Content="Branch :"
+                                            Foreground="White" />
+
+                                <TextBlock
+                                            Grid.Column="1"
+                                            VerticalAlignment="Center"
+                                            Foreground="White"
+                                 FontSize="25"
+                                            Text="{Binding branch}" />
+
+                            </Grid>
+
+                            <Grid Grid.Row="4">
+
+                                <Grid.ColumnDefinitions>
+
+                                    <ColumnDefinition Width="0.4*" />
+                                    <ColumnDefinition Width="0.6*" />
+
+                                </Grid.ColumnDefinitions>
+
+                                <Label
+                                            Grid.Column="0"
+                                            Grid.ColumnSpan="1"
+                                           FontSize="25" 
+                                            Margin="0,0,0,0"
+                                            VerticalAlignment="Top"
+                                            BorderBrush="transparent"
+                                            BorderThickness="1"
+                                            Content="Batch :"
+                                            Foreground="White" />
+
+                                <TextBlock
+                                            Grid.Column="1"
+                                            VerticalAlignment="Center"
+                                            Foreground="White"
+                                 FontSize="25"
+                                            Text="{Binding batch}" />
+
+                            </Grid>
+
+                            <Grid Grid.Row="5">
+
+                                <Grid.ColumnDefinitions>
+
+                                    <ColumnDefinition Width="0.4*" />
+                                    <ColumnDefinition Width="0.6*" />
+
+                                </Grid.ColumnDefinitions>
+
+
+                                <Label
+                                            Grid.Column="0"
+                                            Grid.ColumnSpan="1"
+                                           FontSize="25" 
+                                            Margin="0,0,0,0"
+                                            VerticalAlignment="Top"
+                                            BorderBrush="transparent"
+                                            BorderThickness="1"
+                                            Content="Semester :"
+                                            Foreground="White" />
+
+                                <TextBlock
+                                            Grid.Column="1"
+                                            VerticalAlignment="Center"
+                                            Foreground="White"
+                                 FontSize="25"
+                                            Text="{Binding semester}" />
+
+
+                            </Grid>
+
+                            <Grid Grid.Row="6">
+
+                                <Grid.ColumnDefinitions>
+
+                                    <ColumnDefinition Width="0.4*" />
+                                    <ColumnDefinition Width="0.6*" />
+
+                                </Grid.ColumnDefinitions>
+
+                                <Label
+                                            Grid.Column="0"
+                                            Grid.ColumnSpan="1"
+                                             FontSize="25"
+                                            Margin="0,0,0,0"
+                                            VerticalAlignment="Top"
+                                            BorderBrush="transparent"
+                                            BorderThickness="1"
+                                            Content="Email :"
+                                            Foreground="White" />
+
+                                <TextBlock
+                                            Grid.Column="1"
+                                            VerticalAlignment="Center"
+                                            Foreground="White"
+                                 FontSize="25"
+                                            Text="{Binding email}" />
+
+                            </Grid>
+                            <Grid Grid.Row="7">
+
+                                <Grid.ColumnDefinitions>
+
+                                    <ColumnDefinition Width="0.4*" />
+                                    <ColumnDefinition Width="0.6*" />
+
+                                </Grid.ColumnDefinitions>
+
+                                <Label
+                                            Grid.Column="0"
+                                            Grid.ColumnSpan="1"
+                                             FontSize="25"
+                                            Margin="0,0,0,0"
+                                            VerticalAlignment="Top"
+                                            BorderBrush="transparent"
+                                            BorderThickness="1"
+                                            Content="Mobile number :"
+                                            Foreground="White" />
+
+                                <TextBlock
+                                            Grid.Column="1"
+                                            VerticalAlignment="Center"
+                                            Foreground="White"
+                                 FontSize="25"
+                                            Text="{Binding mobileNumber}" />
+
+                            </Grid>
+
+                            <Grid Grid.Row="8">
+
+                                <Grid.ColumnDefinitions>
+
+                                    <ColumnDefinition Width="0.4*" />
+                                    <ColumnDefinition Width="0.6*" />
+
+                                </Grid.ColumnDefinitions>
+
+                                <Label
+                                            Grid.Column="0"
+                                            Grid.ColumnSpan="1"
+                                             FontSize="25"
+                                            Margin="0,0,0,0"
+                                            VerticalAlignment="Top"
+                                            BorderBrush="transparent"
+                                            BorderThickness="1"
+                                            Content="Nationality :"
+                                            Foreground="White" />
+
+                                <TextBlock
+                                            Grid.Column="1"
+                                            VerticalAlignment="Center"
+                                            Foreground="White"
+                                 FontSize="25"
+                                            Text="{Binding nationality}" />
+
+                            </Grid>
+
+                            <Grid Grid.Row="9">
+
+
+                                <Grid.ColumnDefinitions>
+
+                                    <ColumnDefinition Width="0.4*" />
+                                    <ColumnDefinition Width="0.6*" />
+
+                                </Grid.ColumnDefinitions>
+
+                                <Label
+                                            Grid.Column="0"
+                                            Grid.ColumnSpan="1"
+                                             FontSize="25"
+                                            Margin="0,0,0,0"
+                                            VerticalAlignment="Top"
+                                            BorderBrush="transparent"
+                                            BorderThickness="1"
+                                            Content="Home address :"
+                                            Foreground="White" />
+
+                                <TextBlock
+                                            Grid.Column="1"
+                                            VerticalAlignment="Center"
+                                            Foreground="White"
+                                 FontSize="25"
+                                            Text="{Binding homeAddress}" />
+
+                            </Grid>
+
+                            <Grid Grid.Row="10">
+
+                                <Grid.ColumnDefinitions>
+
+                                    <ColumnDefinition Width="0.4*" />
+                                    <ColumnDefinition Width="0.6*" />
+
+                                </Grid.ColumnDefinitions>
+
+                                <Label
+                                            Grid.Column="0"
+                                            Grid.ColumnSpan="1"
+                                             FontSize="25"
+                                            Margin="0,0,0,0"
+                                            VerticalAlignment="Top"
+                                            BorderBrush="transparent"
+                                            BorderThickness="1"
+                                            Content="hostel :"
+                                            Foreground="White" />
+
+                                <TextBlock
+                                            Grid.Column="1"
+                                            VerticalAlignment="Center"
+                                            Foreground="White"
+                                 FontSize="25"
+                                            Text="{Binding hostel}" />
+
+                            </Grid>
+
+                            <Grid Grid.Row="11">
+
+                                <Grid.ColumnDefinitions>
+
+                                    <ColumnDefinition Width="0.4*" />
+                                    <ColumnDefinition Width="0.6*" />
+
+                                </Grid.ColumnDefinitions>
+
+                                <Label
+                                            Grid.Column="0"
+                                            Grid.ColumnSpan="1"
+                                           FontSize="25" 
+                                            Margin="0,0,0,0"
+                                            VerticalAlignment="Top"
+                                            BorderBrush="transparent"
+                                            BorderThickness="1"
+                                            Content="bloodType :"
+                                            Foreground="White" />
+
+                                <TextBlock
+                                            Grid.Column="1"
+                                            VerticalAlignment="Center"
+                                            Foreground="White"
+                                 FontSize="25"
+                                            Text="{Binding bloodType}" />
+
+                            </Grid>
+
+
+                        </Grid>
+
+                    </Border>
+
+                </Grid>
+
+            </ScrollViewer>
+            
             <Grid Grid.Column="1" Margin="10,10,10,10">
 
                 <Border Background="#876AFA" CornerRadius="15">
@@ -64,81 +448,7 @@
 
                             <Border Background="#443C64" CornerRadius="5">
 
-                                <Grid>
-
-                                    <Grid.RowDefinitions>
-
-                                        <RowDefinition Height="auto" />
-
-                                        <RowDefinition Height="auto" />
-
-                                        <RowDefinition Height="auto" />
-
-                                        <RowDefinition Height="auto" />
-
-                                    </Grid.RowDefinitions>
-
-                                    <Grid Grid.Row="0">
-
-                                        <Grid.ColumnDefinitions>
-
-                                            <ColumnDefinition Width="auto" />
-                                            <ColumnDefinition Width="auto" />
-
-                                        </Grid.ColumnDefinitions>
-
-                                        <Label
-                                            Grid.Column="0"
-                                            Grid.ColumnSpan="2"
-                                            Height="26"
-                                            Margin="0,0,128,0"
-                                            VerticalAlignment="Top"
-                                            BorderBrush="Red"
-                                            BorderThickness="1"
-                                            Content="Name"
-                                            Foreground="White" />
-
-                                        <TextBlock
-                                            Grid.Column="1"
-                                            VerticalAlignment="Center"
-                                            Foreground="White"
-                                            Text="{Binding NameText}" />
-
-                                    </Grid>
-
-                                    <Grid Grid.Row="1">
-
-                                        <Grid.ColumnDefinitions>
-
-                                            <ColumnDefinition Width="auto" />
-                                            <ColumnDefinition Width="*" />
-
-                                        </Grid.ColumnDefinitions>
-
-                                    </Grid>
-
-                                    <Grid Grid.Row="2">
-
-                                        <Grid.ColumnDefinitions>
-
-                                            <ColumnDefinition Width="auto" />
-                                            <ColumnDefinition Width="*" />
-
-                                        </Grid.ColumnDefinitions>
-
-                                    </Grid>
-                                    <Grid Grid.Row="3">
-
-                                        <Grid.ColumnDefinitions>
-
-                                            <ColumnDefinition Width="auto" />
-                                            <ColumnDefinition Width="*" />
-
-                                        </Grid.ColumnDefinitions>
-
-                                    </Grid>
-
-                                </Grid>
+                               
 
                             </Border>
 
