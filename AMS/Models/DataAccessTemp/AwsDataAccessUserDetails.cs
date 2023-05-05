@@ -48,11 +48,23 @@ namespace AMS.Models.DataAccessTemp
 
             if (dic["ExecCode"].Equals("1"))
             {
-                DataObject.UserName = dic["name"];
+                DataObject.UserName = dic["id"];
+                DataObject.Semester = dic["semester"];
+                DataObject.Batch = dic["batch"];
+                DataObject.Name = dic["name"];
+                DataObject.Email = dic["email"];
+                DataObject.MobileNumber = dic["mobilenumber"];
+                DataObject.Nationality = dic["nationality"];
+                DataObject.HomeAddress = dic["homeaddress"];
+                DataObject.Hostel = dic["hostel"];
+                DataObject.Branch = dic["branch"];
+                DataObject.BloodType = dic["bloodtype"];
+                DataObject.Course = dic["course"];
+                DataObject.Password = dic["password"];
             }
             else
             {
-                throw new AMSExceptions.AMSError_Exceptions("User Credentials are wrong");
+                throw new AMSExceptions.AMSError_Exceptions(dic["ErrorMessage"]);
             }
 
             // TODO: If Not possible, then throw exception
