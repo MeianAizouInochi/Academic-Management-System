@@ -32,6 +32,7 @@ namespace AWS_MANAGEMENT_BRIDGE
 			result->Add(gcnew String(it->first.c_str()), gcnew String(it->second.c_str()));
 		}
 
+		delete Temp_map;
 
 		return result;
 	}

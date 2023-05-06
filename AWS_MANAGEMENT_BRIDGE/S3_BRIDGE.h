@@ -15,6 +15,8 @@ namespace AWS_MANAGEMENT_BRIDGE
 		int CreateS3Connection();
 		array<String^>^ ListObjectsS3();
 		array<String^>^ ListBucketS3();
+		bool PutObjectS3(String^ bucketName, String^ filePath, String^ ObjectKey);
+		array<String^>^ GetObjectS3(String^ objectKey, String^ fromBucket, String^ SavePath);
 		void CloseConnection();
 	};
 }
