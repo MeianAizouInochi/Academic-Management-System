@@ -49,62 +49,6 @@ namespace AMS.ViewModels
             }
         }
 
-        /*------------------------Experimental Below------------------------------*/
-
-
-
-        private ISeries[] Series1;
-
-        public ISeries[] series1 
-        {
-            get { return Series1; }
-            set {
-                Series1 = value;
-                OnPropertyChanged(nameof(series1));
-            } 
-        }
-
-
-        private ISeries[] Series2;
-
-        public ISeries[] series2
-        {
-            get 
-            { 
-                return Series2;
-            }
-            set
-            {
-                Series2 = value;
-                OnPropertyChanged(nameof(series2));
-            }
-        }
-        private Axis[] XAxes;
-        public Axis[] xAxes 
-        {
-            get { return XAxes; }
-            set 
-            {
-                XAxes = value;
-                OnPropertyChanged(nameof(xAxes));
-            } 
-        }
-        private Axis[] YAxes;
-        public Axis[] yAxes
-        {
-            get { return YAxes; }
-            set
-            {
-                YAxes = value;
-                OnPropertyChanged(nameof(yAxes));
-            }
-        }
-
-
-
-
-        /*------------------------Experimental Above----------------------------*/
-
         private ObservableCollection<UserDashboardProfileInfoDetailsListItemViewModel> userDashboardProfileInfoDetailsList;
 
         public ObservableCollection<UserDashboardProfileInfoDetailsListItemViewModel> UserDashboardProfileInfoDetailsLists
@@ -158,41 +102,8 @@ namespace AMS.ViewModels
                     SeparatorsAtCenter = false,
                     TicksPaint = new SolidColorPaint(new SKColor(35,35,35)),
                     TicksAtCenter = true
-                } };
-
-            /*------------------Experimental Below-----------------*/
-            //Series1 = new ISeries[] {
-            //    new LineSeries<double> {
-
-            //        Values=new double[] { 2, 1, 3, 5, 3, 4, 6 },
-            //        Fill=null 
-            //    } 
-            //};
-
-            //Series2 =   new ISeries[]{
-            //    new ColumnSeries<double>
-            //    {
-            //        Name = "Mary",
-            //        Values = new double[] { 75, 45, 50,60,45.5 }
-            //    }
-            //};
-
-            //xAxes = new Axis[]{
-            //    new Axis
-            //    {
-            //        Labels = new string[] { "CC", "CD", "AI","MPMC","DS" },
-            //        SeparatorsPaint = new SolidColorPaint(new SKColor(200, 200, 200)),
-            //        SeparatorsAtCenter = true,
-            //        TicksPaint = new SolidColorPaint(new SKColor(35, 35, 35)),
-            //        TicksAtCenter = true
-            //    }
-            //};
-            
-
-
+                } };   
         }
-
-
 
     }
 }
