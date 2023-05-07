@@ -13,5 +13,7 @@ namespace AMS.Models.DataAccessTemp
         void GetData(string? Params = null);
 
         void UpdateData(string? Params = null);
+
+        void TestFunc(params string[] Args);
     }
 }

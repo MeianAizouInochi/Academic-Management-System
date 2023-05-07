@@ -9,6 +9,17 @@ namespace AMS.Models.DataAccessTemp
 {
     public class AwsDataAccessUserDetails : IDataAccess
     {
+
+        /*
+         * Jashan: For your API, lets assume you need some type of functions that you are providing,
+         * I have created a template for that use that function for testing.
+         */
+
+        public void TestFunc(params string[] Args) //Use this for testing.
+        {
+            throw new NotImplementedException();
+        }
+
         public BasicUserDetails DataObject { get; set; }
 
         public string[] AWSParams { get; set; }
@@ -23,48 +34,52 @@ namespace AMS.Models.DataAccessTemp
 
         public void GetData(string? AwsParam = null)
         {
-            // TODO: Do functionality
 
+            // TODO: Jashan Code your Logic here, or just provide me a template of which functions to call, and How to call them.
             /*
-             * List<string> list = SOmfunc(AWSParams);
+             * Provide me the template in this comment so that i can use it to create the logic.
              * 
-             * DataObject.Username = list[0];
+             * your API logic goes here:
+             * 
+             * 
              */
 
-            Dictionary<string, string> dic = new Dictionary<string, string>();
+
+            Dictionary<string, string> TempStudentData = new Dictionary<string, string>();
 
             Console.WriteLine(AWSParams[0]);
 
             DYNAMODB_BRIDGE dYNAMODB_BRIDGE = new DYNAMODB_BRIDGE();
+
             if(dYNAMODB_BRIDGE.CreateDynamoDBConnection()==1)
             {
-                dic = dYNAMODB_BRIDGE.GetItems("users_student", "id", AWSParams[0]);
+                TempStudentData = dYNAMODB_BRIDGE.GetItems("users_student", "id", AWSParams[0]);
             }
 
-            foreach (string keys in dic.Keys)
+            foreach (string keys in TempStudentData.Keys)
             {
-                Console.WriteLine(keys + ":" + dic[keys]);
+                Console.WriteLine(keys + ":" + TempStudentData[keys]);
             }
 
-            if (dic["ExecCode"].Equals("1"))
+            if (TempStudentData["ExecCode"].Equals("1"))
             {
-                DataObject.UserName = dic["id"];
-                DataObject.Semester = dic["semester"];
-                DataObject.Batch = dic["batch"];
-                DataObject.Name = dic["name"];
-                DataObject.Email = dic["email"];
-                DataObject.MobileNumber = dic["mobilenumber"];
-                DataObject.Nationality = dic["nationality"];
-                DataObject.HomeAddress = dic["homeaddress"];
-                DataObject.Hostel = dic["hostel"];
-                DataObject.Branch = dic["branch"];
-                DataObject.BloodType = dic["bloodtype"];
-                DataObject.Course = dic["course"];
-                DataObject.Password = dic["password"];
+                DataObject.UserName = TempStudentData["id"];
+                DataObject.Semester = TempStudentData["semester"];
+                DataObject.Batch = TempStudentData["batch"];
+                DataObject.Name = TempStudentData["name"];
+                DataObject.Email = TempStudentData["email"];
+                DataObject.MobileNumber = TempStudentData["mobilenumber"];
+                DataObject.Nationality = TempStudentData["nationality"];
+                DataObject.HomeAddress = TempStudentData["homeaddress"];
+                DataObject.Hostel = TempStudentData["hostel"];
+                DataObject.Branch = TempStudentData["branch"];
+                DataObject.BloodType = TempStudentData["bloodtype"];
+                DataObject.Course = TempStudentData["course"];
+                DataObject.Password = TempStudentData["password"];
             }
             else
             {
-                throw new AMSExceptions.AMSError_Exceptions(dic["ErrorMessage"]);
+                throw new AMSExceptions.AMSError_Exceptions(TempStudentData["ErrorMessage"]);
             }
 
             // TODO: If Not possible, then throw exception
@@ -76,5 +91,7 @@ namespace AMS.Models.DataAccessTemp
         {
             //do what you need to do
         }
+
+        
     }
 }
