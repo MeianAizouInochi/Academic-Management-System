@@ -1,15 +1,17 @@
 #include "S3_BRIDGE.h"
 #include <vector>
 
+using namespace System::Runtime::InteropServices;
+
 namespace AWS_MANAGEMENT_BRIDGE
 {
 
 
-	/*Entity class constructor , when called makes a new object of AwsConnetor class and pass 
-	it to the ManagedObject classtemplate(M_Instance) , so that it can store the pointer of the newly created 
+	/*Entity class constructor , when called makes a new object of AwsConnetor class and pass
+	it to the ManagedObject classtemplate(M_Instance) , so that it can store the pointer of the newly created
 	object of the AwsConnector class
 	*/
-	S3_BRIDGE::S3_BRIDGE() : ManagedObject(new base::s3_base()){}
+	S3_BRIDGE::S3_BRIDGE() : ManagedObject(new base::s3_base()) {}
 
 
 	/*This function creates creates a s3client connection and pass a int value (o)False or (1)True
@@ -26,7 +28,7 @@ namespace AWS_MANAGEMENT_BRIDGE
 
 
 	/*This Function return a .net Datatype so that it can be consumed by C# application
-	this function list all the objects present in a S3bucket 
+	this function list all the objects present in a S3bucket
 	*/
 	array<String^>^ S3_BRIDGE::ListObjectsS3()
 	{
@@ -67,6 +69,37 @@ namespace AWS_MANAGEMENT_BRIDGE
 		}
 
 		return Array_of_Buckets;
+	}
+
+	array<String^>^ S3_BRIDGE::GetObjectS3(String^ objectKey, String^ fromBucket, String^ SavePath)
+	{
+		std::string OK = (const char*)(Marshal::StringToHGlobalAnsi(objectKey)).ToPointer();
+		std::string fB = (const char*)(Marshal::StringToHGlobalAnsi(fromBucket)).ToPointer();
+		std::string SV = (const char*)(Marshal::StringToHGlobalAnsi(SavePath)).ToPointer();
+
+		std::vector<std::string> vec = M_Instance->GetObject(OK, fB, SV);
+
+		int size = vec.size();
+
+		array<String^>^ result = gcnew array<String^>(size);
+
+		for (int i = 0; i < size; i++)
+		{
+			result[i] = gcnew String(vec[i].c_str());
+		}
+
+		return result;
+	}
+
+	bool S3_BRIDGE::PutObjectS3(String^ bucketName, String^ filePath, String^ ObjectKey)
+	{
+		std::string BN = (const char*)(Marshal::StringToHGlobalAnsi(bucketName)).ToPointer();
+		std::string FN = (const char*)(Marshal::StringToHGlobalAnsi(filePath)).ToPointer();
+		std::string OK = (const char*)(Marshal::StringToHGlobalAnsi(ObjectKey)).ToPointer();
+
+		bool result = M_Instance->UploadObject(BN, FN, OK);
+
+		return result;
 	}
 
 	/*This function closes the connection to s3client and also shuts down the sdk*/
