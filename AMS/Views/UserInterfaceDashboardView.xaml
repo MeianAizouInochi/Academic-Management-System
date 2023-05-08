@@ -122,7 +122,11 @@
 
                         <Grid Grid.Row="0" Margin="35,35,35,0">
 
-                            <ContentControl Content="{StaticResource UserProfileImageDefaultIcon}" />
+                            <!--<ContentControl Content="{StaticResource UserProfileImageDefaultIcon}" />-->
+                            <Border BorderBrush="Black" BorderThickness="1" CornerRadius="100,100,100,100">
+                                <Image Source="{Binding imagepath}" Width="auto" Height="auto" />
+                            </Border>
+                           
 
                         </Grid>
 

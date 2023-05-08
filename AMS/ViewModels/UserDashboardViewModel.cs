@@ -17,7 +17,7 @@ namespace AMS.ViewModels
 {
     public class UserDashboardViewModel:ViewModelBase
     {
-
+        public string imagepath { get; set; }
         public string AttendanceGridTitle { get; set; } = "Personal Attendance Chart";
 
         public string InfoFromTeacher { get; set; } = "Message from Teacher";
@@ -84,7 +84,7 @@ namespace AMS.ViewModels
                 new UserDashboardProfileInfoDetailsListItemViewModel("Address:", basicUserDetails.HomeAddress),
                 new UserDashboardProfileInfoDetailsListItemViewModel("Hostel:", basicUserDetails.Hostel),
                 new UserDashboardProfileInfoDetailsListItemViewModel("BloodType:", basicUserDetails.BloodType)
-
+       
             };
 
             ChangeListData = new ChangeUserDataCommand(UserDashboardProfileInfoDetailsLists);
@@ -102,7 +102,9 @@ namespace AMS.ViewModels
                     SeparatorsAtCenter = false,
                     TicksPaint = new SolidColorPaint(new SKColor(35,35,35)),
                     TicksAtCenter = true
-                } };   
+                } };
+
+            imagepath = basicUserDetails.path;
         }
 
     }

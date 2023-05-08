@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using AWS_MANAGEMENT_BRIDGE;
 
 namespace AMS.Models.DataAccessTemp
@@ -41,7 +43,12 @@ namespace AMS.Models.DataAccessTemp
              * 
              * your API logic goes here:
              * 
-             * 
+             * GetObjectS3() function which retrives files from S3
+             * parameter accepted 
+             * 1. 
+             * output
+             * 0th index  - 0/1 0-unsucessfull , 1- sucessfull
+             * 1th index  - message
              */
 
 
@@ -82,6 +89,26 @@ namespace AMS.Models.DataAccessTemp
                 throw new AMSExceptions.AMSError_Exceptions(TempStudentData["ErrorMessage"]);
             }
 
+            dYNAMODB_BRIDGE.CloseConnection();
+
+            S3_BRIDGE s3_BRIDGE = new S3_BRIDGE();
+            string[] exc;
+
+            if(s3_BRIDGE.CreateS3Connection()==1)
+            {
+
+                exc = s3_BRIDGE.GetObjectS3("2020-2024_BTECH_CSE_AB/2026973/OWL.png", "ams-test-bucket1", "./owl.png");
+                if (exc[0].Equals("0"))
+                {
+                    MessageBox.Show(exc[1]);
+                }
+                else
+                {
+                    string rpath = @".\owl.png";
+                    DataObject.path = Path.GetFullPath(rpath);
+                }
+            }
+            s3_BRIDGE.CloseConnection();
             // TODO: If Not possible, then throw exception
             
 

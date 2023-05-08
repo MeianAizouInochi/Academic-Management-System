@@ -22,5 +22,6 @@ namespace AMS.Models
         public string? UserType;
         public string? Batch;//
         public string? Branch;//
+        public string? path;
     }
 }
