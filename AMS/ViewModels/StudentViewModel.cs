@@ -20,7 +20,7 @@ namespace AMS.ViewModels
 
         public ViewModelBase CurrentSelectedFeatureViewModel => internalMenuNavigationStore.CurrentSelectedFeatureViewModel;
 
-        public StudentViewModel(InternalMenuNavigationStore internalmenuNavigationStore, BasicUserDetails basicUserDetails)
+        public StudentViewModel(InternalMenuNavigationStore internalmenuNavigationStore, StudentUserDetails basicUserDetails)
         {
             internalMenuNavigationStore = internalmenuNavigationStore;
 

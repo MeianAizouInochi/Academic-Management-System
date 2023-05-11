@@ -13,9 +13,9 @@ namespace AMS.Commands
     {
         InternalMenuNavigationStore internalMenuNavigationStore;
 
-        BasicUserDetails _basicUserDetails;
+        StudentUserDetails _basicUserDetails;
 
-        public NavigationToStudentDashboardCommand(InternalMenuNavigationStore internalMenuNavigationstore,BasicUserDetails basicUserDetails)
+        public NavigationToStudentDashboardCommand(InternalMenuNavigationStore internalMenuNavigationstore,StudentUserDetails basicUserDetails)
         {
             internalMenuNavigationStore = internalMenuNavigationstore;
             _basicUserDetails = basicUserDetails;

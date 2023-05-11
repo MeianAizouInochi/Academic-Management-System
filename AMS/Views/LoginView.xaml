@@ -33,13 +33,16 @@
                 Background="#0D084D"
                 BorderBrush="Red"
                 BorderThickness="0"
-                CornerRadius="20"
-                Opacity="1">
+                CornerRadius="20">
 
                 <!--  Grid containing the elements of the form  -->
                 <Grid x:Name="LoginViewGrid_Lvl1" Margin="10,0,10,0">
 
                     <Grid.RowDefinitions>
+
+                        <RowDefinition Height="auto" />
+
+                        <RowDefinition Height="auto" />
 
                         <RowDefinition Height="auto" />
 
@@ -144,9 +147,247 @@
 
                     </Grid>
 
+                    <ComboBox
+                        Grid.Row="3"
+                        Height="auto"
+                        Margin="10,10,10,10"
+                        FontSize="18"
+                        ItemsSource="{Binding UserTypes}"
+                        SelectedItem="{Binding SelectedUserType}" />
+
+                    <Grid Grid.Row="4">
+
+                        <Grid.RowDefinitions>
+
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+
+                            <ColumnDefinition Width="0.5*" />
+                            <ColumnDefinition Width="0.5*" />
+
+                        </Grid.ColumnDefinitions>
+
+                        <Label
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Content="{Binding BatchLabel}"
+                            FontSize="20"
+                            Foreground="White">
+                            <Label.Style>
+                                <Style TargetType="{x:Type Label}">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+
+                                    <Style.Triggers>
+
+                                        <DataTrigger Binding="{Binding SelectedUserType}" Value="Student">
+
+                                            <Setter Property="Visibility" Value="Visible" />
+
+                                        </DataTrigger>
+
+                                    </Style.Triggers>
+                                </Style>
+                            </Label.Style>
+                        </Label>
+
+                        <TextBox
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Height="auto"
+                            Margin="10,10,10,10"
+                            FontSize="18"
+                            Text="{Binding Batch}">
+
+                            <TextBox.Style>
+
+                                <Style TargetType="{x:Type TextBox}">
+
+                                    <Setter Property="Visibility" Value="Collapsed" />
+
+                                    <Style.Triggers>
+
+                                        <DataTrigger Binding="{Binding SelectedUserType}" Value="Student">
+
+                                            <Setter Property="Visibility" Value="Visible" />
+
+                                        </DataTrigger>
+
+                                    </Style.Triggers>
+
+                                </Style>
+
+                            </TextBox.Style>
+
+                        </TextBox>
+
+                        <Label
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            Content="{Binding CourseLabel}"
+                            FontSize="20"
+                            Foreground="White">
+                            <Label.Style>
+                                <Style TargetType="{x:Type Label}">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+
+                                    <Style.Triggers>
+
+                                        <DataTrigger Binding="{Binding SelectedUserType}" Value="Student">
+
+                                            <Setter Property="Visibility" Value="Visible" />
+
+                                        </DataTrigger>
+
+                                    </Style.Triggers>
+                                </Style>
+                            </Label.Style>
+                        </Label>
+
+                        <TextBox
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Height="auto"
+                            Margin="10,10,10,10"
+                            FontSize="18"
+                            Text="{Binding Course}">
+
+                            <TextBox.Style>
+
+                                <Style TargetType="{x:Type TextBox}">
+
+                                    <Setter Property="Visibility" Value="Collapsed" />
+
+                                    <Style.Triggers>
+
+                                        <DataTrigger Binding="{Binding SelectedUserType}" Value="Student">
+
+                                            <Setter Property="Visibility" Value="Visible" />
+
+                                        </DataTrigger>
+
+                                    </Style.Triggers>
+
+                                </Style>
+
+                            </TextBox.Style>
+
+                        </TextBox>
+                        <Label
+                            Grid.Row="2"
+                            Grid.Column="0"
+                            Content="{Binding BranchLabel}"
+                            FontSize="20"
+                            Foreground="white">
+                            <Label.Style>
+                                <Style TargetType="{x:Type Label}">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+
+                                    <Style.Triggers>
+
+                                        <DataTrigger Binding="{Binding SelectedUserType}" Value="Student">
+
+                                            <Setter Property="Visibility" Value="Visible" />
+
+                                        </DataTrigger>
+
+                                    </Style.Triggers>
+                                </Style>
+                            </Label.Style>
+                        </Label>
+
+                        <TextBox
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            Height="auto"
+                            Margin="10,10,10,10"
+                            FontSize="18"
+                            Text="{Binding Branch}">
+
+                            <TextBox.Style>
+
+                                <Style TargetType="{x:Type TextBox}">
+
+                                    <Setter Property="Visibility" Value="Collapsed" />
+
+                                    <Style.Triggers>
+
+                                        <DataTrigger Binding="{Binding SelectedUserType}" Value="Student">
+
+                                            <Setter Property="Visibility" Value="Visible" />
+
+                                        </DataTrigger>
+
+                                    </Style.Triggers>
+
+                                </Style>
+
+                            </TextBox.Style>
+
+                        </TextBox>
+                        <Label
+                            Grid.Row="3"
+                            Grid.Column="0"
+                            Content="{Binding SectionLabel}"
+                            FontSize="20"
+                            Foreground="White">
+                            <Label.Style>
+                                <Style TargetType="{x:Type Label}">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+
+                                    <Style.Triggers>
+
+                                        <DataTrigger Binding="{Binding SelectedUserType}" Value="Student">
+
+                                            <Setter Property="Visibility" Value="Visible" />
+
+                                        </DataTrigger>
+
+                                    </Style.Triggers>
+                                </Style>
+                            </Label.Style>
+                        </Label>
+
+                        <TextBox
+                            Grid.Row="3"
+                            Grid.Column="1"
+                            Height="auto"
+                            Margin="10,10,10,10"
+                            FontSize="18"
+                            Text="{Binding Section}">
+
+                            <TextBox.Style>
+
+                                <Style TargetType="{x:Type TextBox}">
+
+                                    <Setter Property="Visibility" Value="Collapsed" />
+
+                                    <Style.Triggers>
+
+                                        <DataTrigger Binding="{Binding SelectedUserType}" Value="Student">
+
+                                            <Setter Property="Visibility" Value="Visible" />
+
+                                        </DataTrigger>
+
+                                    </Style.Triggers>
+
+                                </Style>
+
+                            </TextBox.Style>
+
+                        </TextBox>
+
+                    </Grid>
+
                     <Grid
                         x:Name="LoginViewGrid_Lvl3"
-                        Grid.Row="3"
+                        Grid.Row="5"
                         Width="auto"
                         Height="50"
                         Margin="0,0,0,0"

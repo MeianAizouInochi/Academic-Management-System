@@ -29,22 +29,42 @@ namespace AMS.Commands
         {
             /*Perform Temporary Verification*/
 
-            AwsDataAccessUserDetails awsDataAccessUserDetails = new AwsDataAccessUserDetails(new BasicUserDetails(), loginViewModel.Username, loginViewModel.Password);
+            AwsDataAccessUserDetails awsDataAccessUserDetails;
 
-            try
+            if (loginViewModel.SelectedUserType.Equals("Student"))
             {
-                awsDataAccessUserDetails.GetData();
+                awsDataAccessUserDetails = new AwsDataAccessUserDetails(
+                    new StudentUserDetails(),
+                    loginViewModel.Username,
+                    loginViewModel.Password,
+                    loginViewModel.Batch,
+                    loginViewModel.Course,
+                    loginViewModel.Branch,
+                    loginViewModel.Section
+                    );
 
-                InternalMenuNavigationStore internalMenuNavigationStore = new InternalMenuNavigationStore();
+                try
+                {
 
-                internalMenuNavigationStore.CurrentSelectedFeatureViewModel = new UserDashboardViewModel((BasicUserDetails)awsDataAccessUserDetails.DataObject);
+                    awsDataAccessUserDetails.GetData();
 
-                navigationStore.CurrentViewModel = new StudentViewModel(internalMenuNavigationStore,(BasicUserDetails)awsDataAccessUserDetails.DataObject);
+                    InternalMenuNavigationStore internalMenuNavigationStore = new InternalMenuNavigationStore();
+
+                    internalMenuNavigationStore.CurrentSelectedFeatureViewModel = new UserDashboardViewModel(awsDataAccessUserDetails.DataObject);
+
+                    navigationStore.CurrentViewModel = new StudentViewModel(internalMenuNavigationStore, (StudentUserDetails)awsDataAccessUserDetails.DataObject);
+
+                }
+                catch (AMSError_Exceptions er)
+                {
+                    MessageBox.Show(er.Message);
+                }
             }
-            catch (AMSError_Exceptions ex) 
+            else 
             {
-                MessageBox.Show(ex.Message);
+                //write the logic for Official type
             }
+            
         }
     }
 }

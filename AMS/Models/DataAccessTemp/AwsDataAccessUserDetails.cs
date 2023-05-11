@@ -22,13 +22,13 @@ namespace AMS.Models.DataAccessTemp
             throw new NotImplementedException();
         }
 
-        public BasicUserDetails DataObject { get; set; }
+        public UserDetails DataObject { get; set; }
 
         public string[] AWSParams { get; set; }
         
-        public AwsDataAccessUserDetails( Object obj, params string[] awsparams)
+        public AwsDataAccessUserDetails( UserDetails obj, params string[] awsparams)
         {
-            DataObject = (BasicUserDetails)obj;
+            DataObject = obj;
 
             AWSParams = awsparams;
 
@@ -51,45 +51,58 @@ namespace AMS.Models.DataAccessTemp
              * 1th index  - message
              */
 
-
+            /*----New Code---*/
             Dictionary<string, string> TempStudentData = new Dictionary<string, string>();
-
-            Console.WriteLine(AWSParams[0]);
 
             DYNAMODB_BRIDGE dYNAMODB_BRIDGE = new DYNAMODB_BRIDGE();
 
-            if(dYNAMODB_BRIDGE.CreateDynamoDBConnection()==1)
-            {
-                TempStudentData = dYNAMODB_BRIDGE.GetItems("users_student", "id", AWSParams[0]);
-            }
+            int Connection_Result = dYNAMODB_BRIDGE.CreateDynamoDBConnection();
 
-            foreach (string keys in TempStudentData.Keys)
+            if (DataObject is StudentUserDetails)
             {
-                Console.WriteLine(keys + ":" + TempStudentData[keys]);
-            }
+                
+                if ( Connection_Result == 1)
+                {
+                    // TODO: the parameters have been made available in AWSParams array in the following format: Username, password, Batch, Course, Branch, Section.
+                    //Use them as required.
 
-            if (TempStudentData["ExecCode"].Equals("1"))
-            {
-                DataObject.UserName = TempStudentData["id"];
-                DataObject.Semester = TempStudentData["semester"];
-                DataObject.Batch = TempStudentData["batch"];
-                DataObject.Name = TempStudentData["name"];
-                DataObject.Email = TempStudentData["email"];
-                DataObject.MobileNumber = TempStudentData["mobilenumber"];
-                DataObject.Nationality = TempStudentData["nationality"];
-                DataObject.HomeAddress = TempStudentData["homeaddress"];
-                DataObject.Hostel = TempStudentData["hostel"];
-                DataObject.Branch = TempStudentData["branch"];
-                DataObject.BloodType = TempStudentData["bloodtype"];
-                DataObject.Course = TempStudentData["course"];
-                DataObject.Password = TempStudentData["password"];
+                    TempStudentData = dYNAMODB_BRIDGE.GetItems("users_student", "id", AWSParams[0]);
+                }
+
+                if (TempStudentData["ExecCode"].Equals("1"))
+                {
+
+                    ((StudentUserDetails)DataObject).UserName = TempStudentData["id"];
+                    ((StudentUserDetails)DataObject).Semester = TempStudentData["semester"];
+                    ((StudentUserDetails)DataObject).Batch = TempStudentData["batch"];
+                    ((StudentUserDetails)DataObject).Name = TempStudentData["name"];
+                    ((StudentUserDetails)DataObject).Email = TempStudentData["email"];
+                    ((StudentUserDetails)DataObject).MobileNumber = TempStudentData["mobilenumber"];
+                    ((StudentUserDetails)DataObject).Nationality = TempStudentData["nationality"];
+                    ((StudentUserDetails)DataObject).HomeAddress = TempStudentData["homeaddress"];
+                    ((StudentUserDetails)DataObject).Hostel = TempStudentData["hostel"];
+                    ((StudentUserDetails)DataObject).Branch = TempStudentData["branch"];
+                    ((StudentUserDetails)DataObject).BloodType = TempStudentData["bloodtype"];
+                    ((StudentUserDetails)DataObject).Course = TempStudentData["course"];
+                    ((StudentUserDetails)DataObject).Password = TempStudentData["password"];
+
+                }
+                else
+                {
+                    throw new AMSExceptions.AMSError_Exceptions(TempStudentData["ErrorMessage"]);
+                }
+
+                
             }
-            else
+            else 
             {
-                throw new AMSExceptions.AMSError_Exceptions(TempStudentData["ErrorMessage"]);
+                // TODO: Define the functionality Getting Teacher's Data.
+                //Get Some Other Type of Data.
             }
 
             dYNAMODB_BRIDGE.CloseConnection();
+            /*----New Code---*/
+
 
             S3_BRIDGE s3_BRIDGE = new S3_BRIDGE();
             string[] exc;
