@@ -125,7 +125,10 @@ namespace AMS.Models.DataAccessTemp
             if(s3_BRIDGE.CreateS3Connection()==1)
             {
 
+                
+
                 exc = s3_BRIDGE.GetObjectS3("2020-2024_BTECH_CSE_AB/2026973/OWL.png", "ams-test-bucket1", "./owl.png");
+
                 if (exc[0].Equals("0"))
                 {
                     MessageBox.Show(exc[1]);
@@ -142,11 +145,35 @@ namespace AMS.Models.DataAccessTemp
 
         }
 
+        public void UploadData(string ) 
+        {
+
+        }
+
         public void UpdateData(string? AwsParam = null)
         {
             //do what you need to do
         }
 
+        //Teacher_user/ Teachers: SakshiXXXXXX
+
+
+
+        // TODO: Function to get the list of Students of a particular Batch/Course/Branch/Section,
+        // i.e. list of Id which is the roll number in the container.
+
+
+
+        // TODO: Function to push the attendance data inside s3.
+
+        /*
+         * Date/Slot/TeacherID/Subject/Q2:{ID Value}
+         */
+
+
+        // TODO: Function to get the attendance data from S3.
+
+        // TODO: Function to push the data into the specific items inside dynamoDb.
         
     }
 }

@@ -9,6 +9,7 @@ namespace AMS.ViewModels
     public class OfficialAttendanceMarkerViewModel:ViewModelBase
     {
         private string Hello;
+
         public string bindCheck 
         {
             get { return Hello; }

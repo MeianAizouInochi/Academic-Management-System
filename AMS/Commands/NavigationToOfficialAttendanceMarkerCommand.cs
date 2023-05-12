@@ -10,7 +10,6 @@ namespace AMS.Commands
 {
     public class NavigationToOfficialAttendanceMarkerCommand : CommandBase
     {
-
         InternalMenuNavigationStore internalmenuNavigationStore;
 
         public NavigationToOfficialAttendanceMarkerCommand(InternalMenuNavigationStore internalMenuNavigationStore)

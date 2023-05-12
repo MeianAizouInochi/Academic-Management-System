@@ -12,6 +12,6 @@ namespace AMS.ViewModels
 
        string imagepath { get; set; }
 
-        ObservableCollection<UserDashboardProfileInfoDetailsListItemViewModel> UserDashboardProfileInfoDetailsList { get; set; }
+       ObservableCollection<UserDashboardProfileInfoDetailsListItemViewModel> UserDashboardProfileInfoDetailsList { get; set; }
     }
 }

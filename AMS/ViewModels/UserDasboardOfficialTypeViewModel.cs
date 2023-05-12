@@ -17,7 +17,7 @@ namespace AMS.ViewModels
 
         public UserDasboardOfficialTypeViewModel(OfficialUserDetails officialUserDetails)
         {
-            
+            //initialize here
         }
     }
 }

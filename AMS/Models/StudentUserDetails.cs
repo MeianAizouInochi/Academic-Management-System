@@ -18,6 +18,6 @@ namespace AMS.Models
         public string? Semester;//
         public string? Batch;//
         public string? Branch;//
-        public string? path;
+
     }
 }
