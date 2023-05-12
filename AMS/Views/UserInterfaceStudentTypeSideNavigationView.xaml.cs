@@ -18,9 +18,9 @@ namespace AMS.Views
     /// <summary>
     /// Interaction logic for UserInterfaceSideNavigationView.xaml
     /// </summary>
-    public partial class UserInterfaceSideNavigationView : UserControl
+    public partial class UserInterfaceStudentTypeSideNavigationView : UserControl
     {
-        public UserInterfaceSideNavigationView()
+        public UserInterfaceStudentTypeSideNavigationView()
         {
             InitializeComponent();
         }

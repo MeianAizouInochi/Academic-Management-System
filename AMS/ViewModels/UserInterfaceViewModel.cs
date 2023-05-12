@@ -10,26 +10,31 @@ using System.Windows.Input;
 
 namespace AMS.ViewModels
 {
-    public class StudentViewModel:ViewModelBase
+    public class UserInterfaceViewModel:ViewModelBase
     {
-        public ICommand? NavigateToDashBoardCommand { get; }
 
-        public ICommand? NavigateToTimeTableCommand { get; }
+        public IUserInterfaceSideNavigationViewModel userInterfaceSideNavigationViewModel { get; set; }
 
         public InternalMenuNavigationStore internalMenuNavigationStore;
 
         public ViewModelBase CurrentSelectedFeatureViewModel => internalMenuNavigationStore.CurrentSelectedFeatureViewModel;
 
-        public StudentViewModel(InternalMenuNavigationStore internalmenuNavigationStore, StudentUserDetails basicUserDetails)
+        public UserInterfaceViewModel(InternalMenuNavigationStore internalmenuNavigationStore, UserDetails basicUserDetails)
         {
+
             internalMenuNavigationStore = internalmenuNavigationStore;
 
-            NavigateToDashBoardCommand = new NavigationToStudentDashboardCommand(internalmenuNavigationStore,basicUserDetails);
+            if (basicUserDetails is StudentUserDetails)
+            {
+                userInterfaceSideNavigationViewModel = new UserInterfaceStudentTypeSideNavigation(internalmenuNavigationStore,(StudentUserDetails)basicUserDetails);
 
-            NavigateToTimeTableCommand = new NavigationToStudentTimeTableCommand(internalmenuNavigationStore);
+            }
+            else 
+            {
+                userInterfaceSideNavigationViewModel = new UserInterfaceOfficialTypeSideNavigation(internalmenuNavigationStore, (OfficialUserDetails)basicUserDetails);
+            }
 
             internalMenuNavigationStore.CurrentSelectedFeatureViewModelChanged += OnCurrentSelectedFeatureViewModelChanged;
-
         }
 
         private void OnCurrentSelectedFeatureViewModelChanged()

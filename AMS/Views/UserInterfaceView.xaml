@@ -51,7 +51,25 @@
                         Grid.Row="1"
                         Grid.Column="0">
 
-                        <views:UserInterfaceSideNavigationView />
+                        <ContentControl Content="{Binding userInterfaceSideNavigationViewModel}">
+
+                            <ContentControl.Resources>
+
+                                <DataTemplate DataType="{x:Type viewmodels:UserInterfaceStudentTypeSideNavigation}">
+
+                                    <views:UserInterfaceStudentTypeSideNavigationView />
+
+                                </DataTemplate>
+
+                                <DataTemplate DataType="{x:Type viewmodels:UserInterfaceOfficialTypeSideNavigation}">
+
+                                    <views:UserInterfaceOfficialTypeSideNavigationView />
+
+                                </DataTemplate>
+
+                            </ContentControl.Resources>
+
+                        </ContentControl>
 
                     </Grid>
 
@@ -73,6 +91,12 @@
                                 <DataTemplate DataType="{x:Type viewmodels:UserTimeTableViewModel}">
 
                                     <views:UserInterfaceTimeTableView />
+
+                                </DataTemplate>
+
+                                <DataTemplate DataType="{x:Type viewmodels:OfficialAttendanceMarkerViewModel}">
+
+                                    <views:OfficialAttendanceMarkerView />
 
                                 </DataTemplate>
 

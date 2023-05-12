@@ -42,28 +42,29 @@ namespace AMS.Commands
                     loginViewModel.Branch,
                     loginViewModel.Section
                     );
-
-                try
-                {
-
-                    awsDataAccessUserDetails.GetData();
-
-                    InternalMenuNavigationStore internalMenuNavigationStore = new InternalMenuNavigationStore();
-
-                    internalMenuNavigationStore.CurrentSelectedFeatureViewModel = new UserDashboardViewModel(awsDataAccessUserDetails.DataObject);
-
-                    navigationStore.CurrentViewModel = new StudentViewModel(internalMenuNavigationStore, (StudentUserDetails)awsDataAccessUserDetails.DataObject);
-
-                }
-                catch (AMSError_Exceptions er)
-                {
-                    MessageBox.Show(er.Message);
-                }
             }
             else 
             {
-                //write the logic for Official type
+                // TODO: Need to understand what data differentiates different Staff.
+                awsDataAccessUserDetails = new AwsDataAccessUserDetails(
+                    new OfficialUserDetails(),
+                    loginViewModel.Username,
+                    loginViewModel.Password
+                    );
             }
+
+            try
+            {
+                awsDataAccessUserDetails.GetData();
+
+                InternalMenuNavigationStore internalMenuNavigationStore = new InternalMenuNavigationStore();
+
+                internalMenuNavigationStore.CurrentSelectedFeatureViewModel = new UserDashboardViewModel(awsDataAccessUserDetails.DataObject);
+
+                navigationStore.CurrentViewModel = new UserInterfaceViewModel(internalMenuNavigationStore,awsDataAccessUserDetails.DataObject);
+
+            }
+            catch (AMSError_Exceptions er) { MessageBox.Show(er.Message); }
             
         }
     }

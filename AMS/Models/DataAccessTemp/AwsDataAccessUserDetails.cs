@@ -98,6 +98,21 @@ namespace AMS.Models.DataAccessTemp
             {
                 // TODO: Define the functionality Getting Teacher's Data.
                 //Get Some Other Type of Data.
+
+                ((OfficialUserDetails)DataObject).UserName = "";
+                
+                ((OfficialUserDetails)DataObject).Name = "";
+                ((OfficialUserDetails)DataObject).Email = "";
+                ((OfficialUserDetails)DataObject).MobileNumber = "";
+                ((OfficialUserDetails)DataObject).Nationality = "";
+                ((OfficialUserDetails)DataObject).HomeAddress = "";
+                ((OfficialUserDetails)DataObject).Hostel = "";
+                
+                ((OfficialUserDetails)DataObject).BloodType = "";
+                
+                ((OfficialUserDetails)DataObject).Password = "";
+
+
             }
 
             dYNAMODB_BRIDGE.CloseConnection();

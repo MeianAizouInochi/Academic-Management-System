@@ -18,7 +18,7 @@ namespace AMS.ViewModels
     {
         public IUserTypeDashboardInterface userTypeDashboardInterface { get; set; }
 
-        public ICommand ChangeListData { get; }
+        //public ICommand ChangeListData { get; }
 
         
         public UserDashboardViewModel(UserDetails userDetails)
@@ -30,7 +30,7 @@ namespace AMS.ViewModels
             }
             else 
             {
-                userTypeDashboardInterface = new UserDasboardOfficialTypeViewModel();
+                userTypeDashboardInterface = new UserDasboardOfficialTypeViewModel((OfficialUserDetails)userDetails);
             }
 
 

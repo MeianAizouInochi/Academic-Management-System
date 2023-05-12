@@ -21,6 +21,12 @@
 
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type viewmodels:UserDasboardOfficialTypeViewModel}">
+
+                <views:OfficialDashBoardView />
+
+            </DataTemplate>
+
         </ContentControl.Resources>
 
     </ContentControl>

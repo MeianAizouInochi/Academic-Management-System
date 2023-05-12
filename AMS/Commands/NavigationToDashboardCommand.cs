@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace AMS.Commands
 {
-    public class NavigationToStudentDashboardCommand:CommandBase
+    public class NavigationToDashboardCommand:CommandBase
     {
         InternalMenuNavigationStore internalMenuNavigationStore;
 
-        StudentUserDetails _basicUserDetails;
+        UserDetails _basicUserDetails;
 
-        public NavigationToStudentDashboardCommand(InternalMenuNavigationStore internalMenuNavigationstore,StudentUserDetails basicUserDetails)
+        public NavigationToDashboardCommand(InternalMenuNavigationStore internalMenuNavigationstore,UserDetails basicUserDetails)
         {
             internalMenuNavigationStore = internalMenuNavigationstore;
             _basicUserDetails = basicUserDetails;

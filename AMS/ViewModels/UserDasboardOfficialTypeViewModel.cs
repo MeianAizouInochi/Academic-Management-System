@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AMS.Models;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace AMS.ViewModels
         public ObservableCollection<UserDashboardProfileInfoDetailsListItemViewModel> UserDashboardProfileInfoDetailsList { get; set; }
 
 
-        public UserDasboardOfficialTypeViewModel()
+        public UserDasboardOfficialTypeViewModel(OfficialUserDetails officialUserDetails)
         {
             
         }
