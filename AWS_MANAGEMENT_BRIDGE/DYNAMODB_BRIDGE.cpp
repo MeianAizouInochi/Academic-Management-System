@@ -54,6 +54,27 @@ namespace AWS_MANAGEMENT_BRIDGE
 		return Array_Of_Objects;
 	}
 
+	array<String^>^ DYNAMODB_BRIDGE::ScanTable(String^ tablename, String^ ProjectionExpression)
+	{
+
+		std::string table_name = (const char*)(Marshal::StringToHGlobalAnsi(tablename)).ToPointer();
+		std::string Projection_Expression = (const char*)(Marshal::StringToHGlobalAnsi(ProjectionExpression)).ToPointer();
+
+		std::vector<std::string> result = M_Instance->ScanTable(table_name,Projection_Expression);
+
+		int size = result.size();
+
+		array<String^>^ Array_Of_Objects = gcnew array<String^>(size);
+
+
+		for (int i = 0; i < size; i++)
+		{
+			Array_Of_Objects[i] = gcnew String(result[i].c_str());
+		}
+
+		return Array_Of_Objects;
+	}
+
 	void DYNAMODB_BRIDGE::CloseConnection()
 	{
 		M_Instance->~dynamodb_base();

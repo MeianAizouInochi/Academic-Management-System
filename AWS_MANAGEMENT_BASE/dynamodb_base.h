@@ -20,6 +20,8 @@ namespace base
 			const std::string partitionKey,
 			const std::string partitionValue);
 
+		std::vector<std::string> ScanTable(const std::string tableName,const std::string projectionExpression);
+
 		int CreateDynamoDBConnection();
 
 	};

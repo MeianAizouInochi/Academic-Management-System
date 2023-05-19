@@ -10,6 +10,8 @@
 #include <aws/dynamodb/model/ListTablesResult.h>
 #include <aws/dynamodb/model/AttributeDefinition.h>
 #include <aws/dynamodb/model/GetItemRequest.h>
+#include <aws/dynamodb/model/ScanRequest.h>
+
 //CREATING HEADER FILES FOR CREATING TABLE.
 #include <aws/dynamodb/model/CreateTableRequest.h>
 #include <aws/dynamodb/model/KeySchemaElement.h>
@@ -131,6 +133,56 @@ namespace base
             listTablesRequest.SetExclusiveStartTableName(outcome.GetResult().GetLastEvaluatedTableName());
 
         } while (!listTablesRequest.GetExclusiveStartTableName().empty());
+
+        return result;
+    }
+
+    std::vector<std::string> dynamodb_base::ScanTable(const std::string tableName,const std::string projectionExpression)
+    {
+
+        Aws::DynamoDB::Model::ScanRequest request;
+
+        std::vector<std::string> result;
+        result.push_back("");
+        result.push_back("");
+
+        request.SetTableName(tableName);
+
+        if (!projectionExpression.empty())
+            request.SetProjectionExpression(projectionExpression);
+
+        // Perform scan on table.
+        const Aws::DynamoDB::Model::ScanOutcome& outcome = DynamoDB_clientRef->Scan(request);
+
+        if (outcome.IsSuccess()) 
+        {
+            result[0] = "1";
+            // Reference the retrieved items.
+            const Aws::Vector<Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue>>& items = outcome.GetResult().GetItems();
+
+            if (!items.empty()) 
+            {
+                
+                // Iterate each item and print.
+                for (const Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue>& itemMap : items) 
+                {
+
+                    // Output each retrieved field and its value.
+                    for (const auto& itemEntry : itemMap)
+                    result.push_back(AWSDynamoDbResultParser(itemEntry.second.GetType(), itemEntry.second));
+
+                }
+            }
+
+            else {
+                result[0] = "0";
+                result[1] = "No item found in table";
+            }
+        }
+        else {
+            result[0] = "0";
+            result[1] = outcome.GetError().GetMessage();
+        }
 
         return result;
     }
