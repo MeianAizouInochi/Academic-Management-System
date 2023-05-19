@@ -16,6 +16,7 @@ namespace AWS_MANAGEMENT_BRIDGE
 		int CreateDynamoDBConnection();
 		array<String^>^ ListTables();
 		Dictionary<String^,String^>^ GetItems(String^ tablename, String^ partitionkey, String^ partitionvalue);
+		array<String^>^ ScanTable(String^ tablename, String^ ProjectionExpression);
 		void CloseConnection();
 	};
 }
