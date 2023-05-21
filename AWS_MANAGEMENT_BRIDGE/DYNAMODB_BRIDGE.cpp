@@ -84,7 +84,7 @@ namespace AWS_MANAGEMENT_BRIDGE
 		std::string day_value = (const char*)(Marshal::StringToHGlobalAnsi(dayvalue)).ToPointer();
 		std::string total_value = (const char*)(Marshal::StringToHGlobalAnsi(totalvalue)).ToPointer();
 
-		std::vector<std::string> partition_values;
+		std::vector<std::string> partition_values(partitionvalues->Length,"");
 
 		for (int i = 0; i < partitionvalues->Length; i++)
 		{

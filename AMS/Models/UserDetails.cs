@@ -8,11 +8,13 @@ namespace AMS.Models
 {
     public class UserDetails
     {
-        public string? Name;
+        public string? Name; //0
         
-        public string? Email;
+        public string? Email;//2
 
-        public string? Password;
+        public string? Password;//7
+
+        public string? Age;//9
 
         public string? path;
     }

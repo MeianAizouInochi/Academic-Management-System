@@ -76,7 +76,7 @@ namespace AMS.ViewModels
                 new UserDashboardProfileInfoDetailsListItemViewModel("Mobile No':", st_userDetails.MobileNumber),
                 new UserDashboardProfileInfoDetailsListItemViewModel("Nationality:", st_userDetails.Nationality),
                 new UserDashboardProfileInfoDetailsListItemViewModel("Address:", st_userDetails.HomeAddress),
-                new UserDashboardProfileInfoDetailsListItemViewModel("Hostel:", st_userDetails.Hostel),
+                new UserDashboardProfileInfoDetailsListItemViewModel("Hostel:", st_userDetails.HostelFacilityAvailed),
                 new UserDashboardProfileInfoDetailsListItemViewModel("BloodType:", st_userDetails.BloodType)
 
             };

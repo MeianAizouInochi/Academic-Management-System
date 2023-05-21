@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -9,24 +10,63 @@ using AWS_MANAGEMENT_BRIDGE;
 
 namespace AMS.Models.DataAccessTemp
 {
+    /// <summary>
+    /// This Class Inherits from IDataAccess interface, and Serves as the Class Mediator for Connection to the C++/Cli API.
+    /// </summary>
     public class AwsDataAccessUserDetails : IDataAccess
     {
+        public UserDetails? DataObject { get; set; }
 
-        /*
-         * Jashan: For your API, lets assume you need some type of functions that you are providing,
-         * I have created a template for that use that function for testing.
-         */
+        public string[]? AWSParams { get; set; }
+
+        //For Simplification of Accessing the Parameters from the string array.
+        private enum StudentLoginInfoType
+        {
+            Batch = 2,
+
+            Course,
+
+            Branch,
+
+            Section
+
+        }
+
+        //For Accessing Stuff with Just Names of those Details.
+        private enum StudentDataKeys
+        {
+            Name,
+            Semester,
+            Email,
+            MobileNumber,
+            Nationality,
+            HomeAddress,
+            HostelFacilityAvailed,
+            Password,
+            BloodType,
+            Age,
+            AttendanceRecord
+        }
+
+        //For Simplification of Accessing the Parameters from the string array.
+        private enum OfficialLoginInfoType
+        {
+            Details1 = 2,
+
+            Details2
+        }
 
         public void TestFunc(params string[] Args) //Use this for testing.
         {
             throw new NotImplementedException();
         }
 
-        public UserDetails DataObject { get; set; }
-
-        public string[] AWSParams { get; set; }
-        
-        public AwsDataAccessUserDetails( UserDetails obj, params string[] awsparams)
+        /// <summary>
+        /// Constructor of AwsDataAccessUserDetails Class.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="awsparams"></param>
+        public AwsDataAccessUserDetails(UserDetails obj, params string[] awsparams)
         {
             DataObject = obj;
 
@@ -34,110 +74,116 @@ namespace AMS.Models.DataAccessTemp
 
         }
 
-        public void GetData(string? AwsParam = null)
+        /// <summary>
+        /// Default Constructor
+        /// </summary>
+        public AwsDataAccessUserDetails()
         {
+            //Default Constructor
+        }
 
-            // TODO: Jashan Code your Logic here, or just provide me a template of which functions to call, and How to call them.
-            /*
-             * Provide me the template in this comment so that i can use it to create the logic.
-             * 
-             * your API logic goes here:
-             * 
-             * GetObjectS3() function which retrives files from S3
-             * parameter accepted 
-             * 1. 
-             * output
-             * 0th index  - 0/1 0-unsucessfull , 1- sucessfull
-             * 1th index  - message
-             */
+        /// <summary>
+        /// This Function is used to get the User Details of the user who Logs in from the Client.
+        /// These Information/Details will be displayed in the Dashboard or can be used for other purposes.
+        /// </summary>
+        /// <param name="AwsParam"></param>
+        /// <exception cref="AMSExceptions.AMSError_Exceptions"></exception>
+        public void GetLoggedInUserDetails(string? AwsParam = null)
+        {
+            Dictionary<string, string> StudentData = new Dictionary<string, string>();
 
-            /*----New Code---*/
-            Dictionary<string, string> TempStudentData = new Dictionary<string, string>();
+            DYNAMODB_BRIDGE DynamoDBContext = new DYNAMODB_BRIDGE();
 
-            DYNAMODB_BRIDGE dYNAMODB_BRIDGE = new DYNAMODB_BRIDGE();
-            string[] exc2;
-            int Connection_Result = dYNAMODB_BRIDGE.CreateDynamoDBConnection();
+            int Connection_Result_Code = DynamoDBContext.CreateDynamoDBConnection();
 
             if (DataObject is StudentUserDetails)
             {
-                       
-                if ( Connection_Result == 1)
+                //get student Data
+
+                if (Connection_Result_Code == 1) //Success
                 {
-                    // TODO: the parameters have been made available in AWSParams array in the following format: Username, password, Batch, Course, Branch, Section.
-                    //Use them as required.
+                    //Getting Data.
 
-                    TempStudentData = dYNAMODB_BRIDGE.GetItems("2020-2024_BTECH_CSE_AB", "id", AWSParams[0]);
+                    //Console.WriteLine($"{AWSParams?[(int)StudentLoginInfoType.Batch]}_{(int)StudentLoginInfoType.Course}_{(int)StudentLoginInfoType.Branch}_{(int)StudentLoginInfoType.Section}");
 
-                    exc2 = dYNAMODB_BRIDGE.ScanTable("users_student", "id");
+                    StudentData = DynamoDBContext.GetItems(
+                        $"{AWSParams?[(int)StudentLoginInfoType.Batch]}_{AWSParams?[(int)StudentLoginInfoType.Course]}_{AWSParams?[(int)StudentLoginInfoType.Branch]}_{AWSParams?[(int)StudentLoginInfoType.Section]}",
+                        "id",
+                        AWSParams?[0]
+                        );
 
-                    if (exc2[0].Equals("1"))
+                    if (StudentData["ExecCode"].Equals("1")) //Checking if Executed Correctly
                     {
-                        foreach (string exc3 in exc2) { Console.WriteLine(exc3); }         
+
+                        //Setting the data into the Model.
+
+                        ((StudentUserDetails)DataObject).Name = StudentData[((int)StudentDataKeys.Name).ToString()];
+
+                        ((StudentUserDetails)DataObject).Semester = StudentData[((int)StudentDataKeys.Semester).ToString()];
+
+                        ((StudentUserDetails)DataObject).Email = StudentData[((int)StudentDataKeys.Email).ToString()];
+
+                        ((StudentUserDetails)DataObject).MobileNumber = StudentData[((int)StudentDataKeys.MobileNumber).ToString()];
+
+                        ((StudentUserDetails)DataObject).Nationality = StudentData[((int)StudentDataKeys.Nationality).ToString()];
+
+                        ((StudentUserDetails)DataObject).HomeAddress = StudentData[((int)StudentDataKeys.HomeAddress).ToString()];
+
+                        ((StudentUserDetails)DataObject).HostelFacilityAvailed = StudentData[((int)StudentDataKeys.HostelFacilityAvailed).ToString()];
+
+                        ((StudentUserDetails)DataObject).Password = StudentData[((int)StudentDataKeys.Password).ToString()];
+
+                        ((StudentUserDetails)DataObject).BloodType = StudentData[((int)StudentDataKeys.BloodType).ToString()];
+
+                        ((StudentUserDetails)DataObject).Age = StudentData[((int)StudentDataKeys.Age).ToString()];
+
+                        ((StudentUserDetails)DataObject).AttendanceRecord = StudentData[((int)StudentDataKeys.AttendanceRecord).ToString()];
+
+                        ((StudentUserDetails)DataObject).Batch = AWSParams?[(int)StudentLoginInfoType.Batch];
+
+                        ((StudentUserDetails)DataObject).Branch = AWSParams?[(int)StudentLoginInfoType.Branch];
+
+                        ((StudentUserDetails)DataObject).Course = AWSParams?[(int)StudentLoginInfoType.Course];
+
+                        ((StudentUserDetails)DataObject).Section = AWSParams?[(int)StudentLoginInfoType.Section];
+
                     }
                     else
                     {
-                        Console.WriteLine("ERROR HAPPENED !");
+                        throw new AMSExceptions.AMSError_Exceptions(StudentData["ErrorMessage"]);
                     }
-
                 }
-
-                if (TempStudentData["ExecCode"].Equals("1"))
-                {
-
-                    ((StudentUserDetails)DataObject).UserName = TempStudentData["id"];
-                    ((StudentUserDetails)DataObject).Semester = TempStudentData["0"];
-                    //((StudentUserDetails)DataObject).Batch = TempStudentData["batch"];
-                    ((StudentUserDetails)DataObject).Name = TempStudentData["1"];
-                    ((StudentUserDetails)DataObject).Email = TempStudentData["2"];
-                    ((StudentUserDetails)DataObject).MobileNumber = TempStudentData["3"];
-                    ((StudentUserDetails)DataObject).Nationality = TempStudentData["4"];
-                    ((StudentUserDetails)DataObject).HomeAddress = TempStudentData["5"];
-                    ((StudentUserDetails)DataObject).Hostel = TempStudentData["6"];
-                    //((StudentUserDetails)DataObject).Branch = TempStudentData["branch"];
-                    ((StudentUserDetails)DataObject).BloodType = TempStudentData["8"];
-                    //((StudentUserDetails)DataObject).Course = TempStudentData["course"];
-                    //((StudentUserDetails)DataObject).Password = TempStudentData["password"];
-
-                }
-                else
-                {
-                    throw new AMSExceptions.AMSError_Exceptions(TempStudentData["ErrorMessage"]);
-                }
-
-                
             }
-            else 
+            else if (DataObject is OfficialUserDetails)
             {
-                // TODO: Define the functionality Getting Teacher's Data.
-                //Get Some Other Type of Data.
+                //get official Data
 
+                //TempData
                 ((OfficialUserDetails)DataObject).UserName = "";
-                
+
                 ((OfficialUserDetails)DataObject).Name = "";
                 ((OfficialUserDetails)DataObject).Email = "";
                 ((OfficialUserDetails)DataObject).MobileNumber = "";
                 ((OfficialUserDetails)DataObject).Nationality = "";
                 ((OfficialUserDetails)DataObject).HomeAddress = "";
                 ((OfficialUserDetails)DataObject).Hostel = "";
-                
+
                 ((OfficialUserDetails)DataObject).BloodType = "";
-                
+
                 ((OfficialUserDetails)DataObject).Password = "";
-
-
             }
 
-            dYNAMODB_BRIDGE.CloseConnection();
-            /*----New Code---*/
+            DynamoDBContext.CloseConnection();
 
+            //Getting Profile Picture from S3.
 
-            S3_BRIDGE s3_BRIDGE = new S3_BRIDGE();
+            S3_BRIDGE S3DBContext = new S3_BRIDGE();
+
             string[] exc;
 
-            if(s3_BRIDGE.CreateS3Connection()==1)
+            if (S3DBContext.CreateS3Connection() == 1)
             {
-                
-                exc = s3_BRIDGE.GetObjectS3("2020-2024_BTECH_CSE_AB/2026973/OWL.png", "ams-test-bucket1", "./owl.png");
+                exc = S3DBContext.GetObjectS3("2020-2024_BTECH_CSE_AB/2026973/OWL.png", "ams-test-bucket1", "./owl.png");
 
                 if (exc[0].Equals("0"))
                 {
@@ -146,16 +192,14 @@ namespace AMS.Models.DataAccessTemp
                 else
                 {
                     string rpath = @".\owl.png";
+
                     DataObject.path = Path.GetFullPath(rpath);
                 }
             }
-            s3_BRIDGE.CloseConnection();
-            // TODO: If Not possible, then throw exception
-            
-
+            S3DBContext.CloseConnection();
         }
 
-        public void UploadData(string s) 
+        public void UploadData(string s)
         {
 
         }
@@ -165,9 +209,34 @@ namespace AMS.Models.DataAccessTemp
             //do what you need to do
         }
 
+        /// <summary>
+        /// It puts the list of Student Id's into the attribute StudentIdList of the object of StudentList Class.
+        /// In Case of Failure it provides null in the attribute.
+        /// </summary>
+        /// <param name="studentList"></param>
+        /// <param name="TableInfo"></param>
+        public void GetStudentIDList(StudentList studentList, params string[] TableInfo)
+        {
+            DYNAMODB_BRIDGE DynamoDbContext = new DYNAMODB_BRIDGE();
+
+            string[] Result;
+
+            if (DynamoDbContext.CreateDynamoDBConnection() == 1)
+            {
+                Result = DynamoDbContext.ScanTable(
+                    $"{TableInfo[(int)StudentLoginInfoType.Batch - 2]}_{TableInfo[(int)StudentLoginInfoType.Branch - 2]}_{TableInfo[(int)StudentLoginInfoType.Course - 2]}_{TableInfo[(int)StudentLoginInfoType.Section - 2]}",
+                    "id");
+
+                studentList.StudentIdList = Result;
+            }
+            else
+            {
+                studentList.StudentIdList = null;
+            }
+
+        }
+
         //Teacher_user/ Teachers: SakshiXXXXXX
-
-
 
         // TODO: Function to get the list of Students of a particular Batch/Course/Branch/Section,
         // to get the list of students in a table by their roll no 
@@ -214,6 +283,15 @@ namespace AMS.Models.DataAccessTemp
 
 
         // TODO: Function to push the data into the specific items inside dynamoDb.
+
+        // TODO: Function to update attendance data in dynamodb
+        //Example below
+        //string tablename = $"{AWSParams?[(int)StudentLoginInfoType.Batch]}_{AWSParams?[(int)StudentLoginInfoType.Course]}_{AWSParams?[(int)StudentLoginInfoType.Branch]}_{AWSParams?[(int)StudentLoginInfoType.Section]}";
+        //string[] res = DynamoDBContext.UpdateAttendance(tablename, "id", new string[] { "2026973", "2026979" }, "10", "BTCS601-18", "1", "1");
+        //    if (res[0].Equals("0"))
+        //    {
+        //        throw new AMSExceptions.AMSError_Exceptions(res[1]);
+        //    }
 
     }
 }
