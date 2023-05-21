@@ -77,7 +77,7 @@ namespace base
         // Set up the request.
         request.SetTableName(tableName);
         request.AddKey(partitionKey,
-            Aws::DynamoDB::Model::AttributeValue().SetN(partitionValue));
+            Aws::DynamoDB::Model::AttributeValue().SetS(partitionValue));
 
         // Retrieve the item's fields and values.
         const Aws::DynamoDB::Model::GetItemOutcome& outcome = DynamoDB_clientRef->GetItem(request);
@@ -102,7 +102,7 @@ namespace base
         }
         else {
             map_base->insert(std::make_pair("ExecCode", "0"));
-            map_base->insert(std::make_pair("ErrorMessage", "Connectivity error , please try again later"));
+            map_base->insert(std::make_pair("ErrorMessage", "Connectivity error , please try again later"+outcome.GetError().GetMessage()));
             return map_base;
         }
 

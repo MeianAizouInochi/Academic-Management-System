@@ -31,6 +31,8 @@ namespace AMS.Commands
 
             AwsDataAccessUserDetails awsDataAccessUserDetails;
 
+            //Populating the AwsDataAccessUserDetails object as per the Role of the User.
+
             if (loginViewModel.SelectedUserType.Equals("Student"))
             {
                 awsDataAccessUserDetails = new AwsDataAccessUserDetails(
@@ -55,7 +57,8 @@ namespace AMS.Commands
 
             try
             {
-                awsDataAccessUserDetails.GetData();
+                //Getting the User Data.
+                awsDataAccessUserDetails.GetLoggedInUserDetails();
 
                 InternalMenuNavigationStore internalMenuNavigationStore = new InternalMenuNavigationStore();
 
