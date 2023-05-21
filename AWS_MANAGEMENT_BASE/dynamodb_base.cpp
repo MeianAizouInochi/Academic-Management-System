@@ -18,6 +18,10 @@
 #include <aws/dynamodb/model/ProvisionedThroughput.h>
 #include <aws/dynamodb/model/ScalarAttributeType.h>
 
+//HEADER FILES FOR TRANSACTIONS
+#include <aws/dynamodb/model/TransactWriteItem.h>
+#include <aws/dynamodb/model/TransactWriteItemsRequest.h>
+
 namespace base
 {
 
@@ -185,5 +189,58 @@ namespace base
         }
 
         return result;
+    }
+
+    //SPECALIZED FUNCTION - TO Update attendance
+    std::vector<std::string> dynamodb_base::UpdateAttendance(const std::string tableName,
+        const std::string partitionKey,
+        std::vector<std::string> partitionValues,
+        const std::string ColumnName,
+        const std::string SubjectName,
+        const std::string dayValue,
+        const std::string TotalValue)
+    {
+
+        std::vector<std::string> res;
+        res.push_back("");
+        res.push_back("");
+        
+        // Creating a vector to store multiple transaction if any
+        std::vector<Aws::DynamoDB::Model::TransactWriteItem> writeItems;
+
+
+        for (auto partitionValue : partitionValues)
+        {
+            Aws::DynamoDB::Model::Update updateRequest;
+            updateRequest.WithTableName(tableName)
+                .WithKey({ { partitionKey, Aws::DynamoDB::Model::AttributeValue().SetS(partitionValue) } })
+                .WithUpdateExpression("SET #map.#nestedAttr.#attendanceday = #map.#nestedAttr.#attendanceday + :val1, #map.#nestedAttr.#attendanceTotal = #map.#nestedAttr.#attendanceTotal + :val2")
+                .WithExpressionAttributeNames({ { "#map", ColumnName }, { "#nestedAttr", SubjectName }, { "#attendanceday", "0" }, { "#attendanceTotal", "1" } })
+                .WithExpressionAttributeValues({ { ":val1", Aws::DynamoDB::Model::AttributeValue().SetN(dayValue) },{ ":val2", Aws::DynamoDB::Model::AttributeValue().SetN(TotalValue) } });
+        
+            Aws::DynamoDB::Model::TransactWriteItem transactionWriteItem;
+            transactionWriteItem.WithUpdate(updateRequest);
+
+            writeItems.push_back(transactionWriteItem);
+        }
+
+
+        // Create the transaction write items request
+        Aws::DynamoDB::Model::TransactWriteItemsRequest transactionWriteItemsRequest;
+        transactionWriteItemsRequest.WithTransactItems({ writeItems });
+
+        // Execute the transaction
+        auto outcome = DynamoDB_clientRef->TransactWriteItems(transactionWriteItemsRequest);
+
+        if (outcome.IsSuccess()) {
+            res[0] = "1";
+            res[1] = "";
+        }
+        else {
+            res[0] = "0";
+            res[1] = outcome.GetError().GetMessage();
+        }
+
+        return res;
     }
 }

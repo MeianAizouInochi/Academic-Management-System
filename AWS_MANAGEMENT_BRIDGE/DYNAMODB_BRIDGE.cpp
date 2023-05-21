@@ -75,6 +75,37 @@ namespace AWS_MANAGEMENT_BRIDGE
 		return Array_Of_Objects;
 	}
 
+	array<String^>^ DYNAMODB_BRIDGE::UpdateAttendance(String^ tablename, String^ partitionkey, array<String^>^ partitionvalues, String^ ColumnName, String^ SubjectName, String^ dayvalue, String^ totalvalue)
+	{
+		std::string table_name = (const char*)(Marshal::StringToHGlobalAnsi(tablename)).ToPointer();
+		std::string partition_key = (const char*)(Marshal::StringToHGlobalAnsi(partitionkey)).ToPointer();
+		std::string map_Column_Name = (const char*)(Marshal::StringToHGlobalAnsi(ColumnName)).ToPointer();
+		std::string Subject_Name = (const char*)(Marshal::StringToHGlobalAnsi(SubjectName)).ToPointer();
+		std::string day_value = (const char*)(Marshal::StringToHGlobalAnsi(dayvalue)).ToPointer();
+		std::string total_value = (const char*)(Marshal::StringToHGlobalAnsi(totalvalue)).ToPointer();
+
+		std::vector<std::string> partition_values;
+
+		for (int i = 0; i < partitionvalues->Length; i++)
+		{
+			partition_values[i] = (const char*)(Marshal::StringToHGlobalAnsi(partitionvalues[i])).ToPointer();;
+		}
+
+		std::vector<std::string> result = M_Instance->UpdateAttendance(table_name, partition_key, partition_values, map_Column_Name,Subject_Name, day_value, total_value);
+
+		int size = result.size();
+
+		array<String^>^ Array_Of_Objects = gcnew array<String^>(size);
+
+
+		for (int i = 0; i < size; i++)
+		{
+			Array_Of_Objects[i] = gcnew String(result[i].c_str());
+		}
+
+		return Array_Of_Objects;
+	}
+
 	void DYNAMODB_BRIDGE::CloseConnection()
 	{
 		M_Instance->~dynamodb_base();

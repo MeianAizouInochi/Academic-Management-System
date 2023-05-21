@@ -17,6 +17,7 @@ namespace AWS_MANAGEMENT_BRIDGE
 		array<String^>^ ListTables();
 		Dictionary<String^,String^>^ GetItems(String^ tablename, String^ partitionkey, String^ partitionvalue);
 		array<String^>^ ScanTable(String^ tablename, String^ ProjectionExpression);
+		array<String^>^ UpdateAttendance(String^ tablename, String^ partitionkey, array<String^>^ partitionvalues, String^ ColumnName, String^ SubjectName, String^ dayvalue, String^ totalvalue);
 		void CloseConnection();
 	};
 }

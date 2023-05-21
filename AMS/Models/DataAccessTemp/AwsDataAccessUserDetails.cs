@@ -66,7 +66,7 @@ namespace AMS.Models.DataAccessTemp
                     // TODO: the parameters have been made available in AWSParams array in the following format: Username, password, Batch, Course, Branch, Section.
                     //Use them as required.
 
-                    TempStudentData = dYNAMODB_BRIDGE.GetItems("users_student", "id", AWSParams[0]);
+                    TempStudentData = dYNAMODB_BRIDGE.GetItems("2020-2024_BTECH_CSE_AB", "id", AWSParams[0]);
 
                     exc2 = dYNAMODB_BRIDGE.ScanTable("users_student", "id");
 
@@ -85,18 +85,18 @@ namespace AMS.Models.DataAccessTemp
                 {
 
                     ((StudentUserDetails)DataObject).UserName = TempStudentData["id"];
-                    ((StudentUserDetails)DataObject).Semester = TempStudentData["semester"];
-                    ((StudentUserDetails)DataObject).Batch = TempStudentData["batch"];
-                    ((StudentUserDetails)DataObject).Name = TempStudentData["name"];
-                    ((StudentUserDetails)DataObject).Email = TempStudentData["email"];
-                    ((StudentUserDetails)DataObject).MobileNumber = TempStudentData["mobilenumber"];
-                    ((StudentUserDetails)DataObject).Nationality = TempStudentData["nationality"];
-                    ((StudentUserDetails)DataObject).HomeAddress = TempStudentData["homeaddress"];
-                    ((StudentUserDetails)DataObject).Hostel = TempStudentData["hostel"];
-                    ((StudentUserDetails)DataObject).Branch = TempStudentData["branch"];
-                    ((StudentUserDetails)DataObject).BloodType = TempStudentData["bloodtype"];
-                    ((StudentUserDetails)DataObject).Course = TempStudentData["course"];
-                    ((StudentUserDetails)DataObject).Password = TempStudentData["password"];
+                    ((StudentUserDetails)DataObject).Semester = TempStudentData["0"];
+                    //((StudentUserDetails)DataObject).Batch = TempStudentData["batch"];
+                    ((StudentUserDetails)DataObject).Name = TempStudentData["1"];
+                    ((StudentUserDetails)DataObject).Email = TempStudentData["2"];
+                    ((StudentUserDetails)DataObject).MobileNumber = TempStudentData["3"];
+                    ((StudentUserDetails)DataObject).Nationality = TempStudentData["4"];
+                    ((StudentUserDetails)DataObject).HomeAddress = TempStudentData["5"];
+                    ((StudentUserDetails)DataObject).Hostel = TempStudentData["6"];
+                    //((StudentUserDetails)DataObject).Branch = TempStudentData["branch"];
+                    ((StudentUserDetails)DataObject).BloodType = TempStudentData["8"];
+                    //((StudentUserDetails)DataObject).Course = TempStudentData["course"];
+                    //((StudentUserDetails)DataObject).Password = TempStudentData["password"];
 
                 }
                 else
