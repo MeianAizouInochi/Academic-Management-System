@@ -20,7 +20,7 @@ namespace AMS.Models.DataAccessTemp
         public string[]? AWSParams { get; set; }
 
         //For Simplification of Accessing the Parameters from the string array.
-        private enum StudentLoginInfoType 
+        private enum StudentLoginInfoType
         {
             Batch = 2,
 
@@ -33,7 +33,7 @@ namespace AMS.Models.DataAccessTemp
         }
 
         //For Accessing Stuff with Just Names of those Details.
-        private enum StudentDataKeys 
+        private enum StudentDataKeys
         {
             Name,
             Semester,
@@ -66,7 +66,7 @@ namespace AMS.Models.DataAccessTemp
         /// </summary>
         /// <param name="obj"></param>
         /// <param name="awsparams"></param>
-        public AwsDataAccessUserDetails( UserDetails obj, params string[] awsparams)
+        public AwsDataAccessUserDetails(UserDetails obj, params string[] awsparams)
         {
             DataObject = obj;
 
@@ -90,7 +90,7 @@ namespace AMS.Models.DataAccessTemp
         /// <exception cref="AMSExceptions.AMSError_Exceptions"></exception>
         public void GetLoggedInUserDetails(string? AwsParam = null)
         {
-            Dictionary<string,string> StudentData = new Dictionary<string,string>();
+            Dictionary<string, string> StudentData = new Dictionary<string, string>();
 
             DYNAMODB_BRIDGE DynamoDBContext = new DYNAMODB_BRIDGE();
 
@@ -120,23 +120,23 @@ namespace AMS.Models.DataAccessTemp
                         ((StudentUserDetails)DataObject).Name = StudentData[((int)StudentDataKeys.Name).ToString()];
 
                         ((StudentUserDetails)DataObject).Semester = StudentData[((int)StudentDataKeys.Semester).ToString()];
-                        
+
                         ((StudentUserDetails)DataObject).Email = StudentData[((int)StudentDataKeys.Email).ToString()];
-                        
+
                         ((StudentUserDetails)DataObject).MobileNumber = StudentData[((int)StudentDataKeys.MobileNumber).ToString()];
-                        
+
                         ((StudentUserDetails)DataObject).Nationality = StudentData[((int)StudentDataKeys.Nationality).ToString()];
-                        
+
                         ((StudentUserDetails)DataObject).HomeAddress = StudentData[((int)StudentDataKeys.HomeAddress).ToString()];
-                        
+
                         ((StudentUserDetails)DataObject).HostelFacilityAvailed = StudentData[((int)StudentDataKeys.HostelFacilityAvailed).ToString()];
-                        
+
                         ((StudentUserDetails)DataObject).Password = StudentData[((int)StudentDataKeys.Password).ToString()];
-                        
+
                         ((StudentUserDetails)DataObject).BloodType = StudentData[((int)StudentDataKeys.BloodType).ToString()];
-                        
+
                         ((StudentUserDetails)DataObject).Age = StudentData[((int)StudentDataKeys.Age).ToString()];
-                        
+
                         ((StudentUserDetails)DataObject).AttendanceRecord = StudentData[((int)StudentDataKeys.AttendanceRecord).ToString()];
 
                         ((StudentUserDetails)DataObject).Batch = AWSParams?[(int)StudentLoginInfoType.Batch];
@@ -148,13 +148,13 @@ namespace AMS.Models.DataAccessTemp
                         ((StudentUserDetails)DataObject).Section = AWSParams?[(int)StudentLoginInfoType.Section];
 
                     }
-                    else 
+                    else
                     {
                         throw new AMSExceptions.AMSError_Exceptions(StudentData["ErrorMessage"]);
                     }
                 }
             }
-            else if(DataObject is OfficialUserDetails)
+            else if (DataObject is OfficialUserDetails)
             {
                 //get official Data
 
@@ -181,7 +181,7 @@ namespace AMS.Models.DataAccessTemp
 
             string[] exc;
 
-            if(S3DBContext.CreateS3Connection()==1)
+            if (S3DBContext.CreateS3Connection() == 1)
             {
                 exc = S3DBContext.GetObjectS3("2020-2024_BTECH_CSE_AB/2026973/OWL.png", "ams-test-bucket1", "./owl.png");
 
@@ -199,7 +199,7 @@ namespace AMS.Models.DataAccessTemp
             S3DBContext.CloseConnection();
         }
 
-        public void UploadData(string s) 
+        public void UploadData(string s)
         {
 
         }
@@ -229,7 +229,7 @@ namespace AMS.Models.DataAccessTemp
 
                 studentList.StudentIdList = Result;
             }
-            else 
+            else
             {
                 studentList.StudentIdList = null;
             }
@@ -283,6 +283,15 @@ namespace AMS.Models.DataAccessTemp
 
 
         // TODO: Function to push the data into the specific items inside dynamoDb.
+
+        // TODO: Function to update attendance data in dynamodb
+        //Example below
+        //string tablename = $"{AWSParams?[(int)StudentLoginInfoType.Batch]}_{AWSParams?[(int)StudentLoginInfoType.Course]}_{AWSParams?[(int)StudentLoginInfoType.Branch]}_{AWSParams?[(int)StudentLoginInfoType.Section]}";
+        //string[] res = DynamoDBContext.UpdateAttendance(tablename, "id", new string[] { "2026973", "2026979" }, "10", "BTCS601-18", "1", "1");
+        //    if (res[0].Equals("0"))
+        //    {
+        //        throw new AMSExceptions.AMSError_Exceptions(res[1]);
+        //    }
 
     }
 }

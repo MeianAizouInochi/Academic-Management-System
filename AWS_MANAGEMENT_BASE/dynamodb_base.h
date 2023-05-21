@@ -22,6 +22,14 @@ namespace base
 
 		std::vector<std::string> ScanTable(const std::string tableName,const std::string projectionExpression);
 
+		std::vector<std::string> UpdateAttendance(const std::string tableName,
+			const std::string partitionKey,
+			std::vector<std::string> partitionValues,
+			const std::string ColumnName,
+			const std::string SubjectName,
+			const std::string dayValue,
+			const std::string TotalValue);
+
 		int CreateDynamoDBConnection();
 
 	};
