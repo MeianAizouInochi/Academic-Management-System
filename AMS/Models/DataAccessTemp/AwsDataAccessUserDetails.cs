@@ -292,7 +292,7 @@ namespace AMS.Models.DataAccessTemp
 
                 if (Result[0].Equals("0"))
                 {
-                    throw new AMSExceptions.AMSError_Exceptions(Result[1]);
+                    throw new AMSError_Exceptions(Result[1]);
                 }
 
             }
