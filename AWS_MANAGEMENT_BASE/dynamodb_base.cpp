@@ -48,8 +48,10 @@ namespace base
         DynamoDB_clientRef = nullptr;
     }
 
-    std::string AWSDynamoDbResultParser(Aws::DynamoDB::Model::ValueType obj, Aws::DynamoDB::Model::AttributeValue val)
+    std::string AWSDynamoDbResultParser(Aws::DynamoDB::Model::ValueType obj, Aws::DynamoDB::Model::AttributeValue val,int stage)
     {
+        std::string ResultString = "";
+
         //type of enums NUMBER, BYTEBUFFER, STRING_SET, NUMBER_SET, BYTEBUFFER_SET, ATTRIBUTE_MAP, ATTRIBUTE_LIST, BOOL, NULLVALUE
         switch (obj)
         {
@@ -65,6 +67,51 @@ namespace base
         case Aws::DynamoDB::Model::ValueType::NULLVALUE:
             return "";
             break;
+        case Aws::DynamoDB::Model::ValueType::STRING_SET:
+        {
+            Aws::Vector<Aws::String> TempStringSet = val.GetSS();
+            for (auto str : TempStringSet)
+            {
+                ResultString = ResultString + str + ",";
+            }
+            if (!ResultString.empty())
+                ResultString.resize(ResultString.size() - 1);
+        }
+        return ResultString;
+        break;
+        case Aws::DynamoDB::Model::ValueType::NUMBER_SET:
+        {
+            Aws::Vector<Aws::String> TempNumberSet = val.GetNS();
+            for (auto str : TempNumberSet)
+            {
+                ResultString = ResultString + str + ",";
+            }
+            if (!ResultString.empty())
+                ResultString.resize(ResultString.size() - 1);
+        }
+        return ResultString;
+        break;
+        case Aws::DynamoDB::Model::ValueType::ATTRIBUTE_MAP:
+        {
+            const Aws::Map<Aws::String, const std::shared_ptr<Aws::DynamoDB::Model::AttributeValue>> TempAttMap = val.GetM();
+            for (auto i = TempAttMap.begin(); i != TempAttMap.end(); i++)
+            {
+                if (stage == 0)
+                {
+                    ResultString = ResultString + i->first + ":";
+                    ResultString = ResultString + "[" + AWSDynamoDbResultParser(i->second->GetType(), *(i->second), stage + 1);
+                    ResultString = ResultString + "]" + ",";
+                }
+                else
+                {
+                    ResultString = ResultString + AWSDynamoDbResultParser(i->second->GetType(), *(i->second), stage + 1) + ":";
+                }
+            }
+            if (!ResultString.empty())
+                ResultString.resize(ResultString.size() - 1);
+        }
+        return ResultString;
+        break;
         default:
             return "error";
         }
@@ -94,7 +141,7 @@ namespace base
                 // Output each retrieved field and its value.
                 for (const auto& i : item)
                 {
-                    map_base->insert(std::make_pair(i.first, AWSDynamoDbResultParser(i.second.GetType(), i.second)));
+                    map_base->insert(std::make_pair(i.first, AWSDynamoDbResultParser(i.second.GetType(), i.second,0)));
                 }
                 map_base->insert(std::make_pair("ErrorMessage", ""));
             }
@@ -173,7 +220,7 @@ namespace base
 
                     // Output each retrieved field and its value.
                     for (const auto& itemEntry : itemMap)
-                    result.push_back(AWSDynamoDbResultParser(itemEntry.second.GetType(), itemEntry.second));
+                    result.push_back(AWSDynamoDbResultParser(itemEntry.second.GetType(), itemEntry.second,0));
 
                 }
             }
