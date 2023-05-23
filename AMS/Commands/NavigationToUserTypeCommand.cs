@@ -62,6 +62,7 @@ namespace AMS.Commands
 
                 InternalMenuNavigationStore internalMenuNavigationStore = new InternalMenuNavigationStore();
 
+                //TODO: Fix the null Object issue for DataObject.
                 internalMenuNavigationStore.CurrentSelectedFeatureViewModel = new UserDashboardViewModel(awsDataAccessUserDetails.DataObject);
 
                 navigationStore.CurrentViewModel = new UserInterfaceViewModel(internalMenuNavigationStore,awsDataAccessUserDetails.DataObject);

@@ -18,5 +18,12 @@ namespace AMS.Models.DataAccessTemp
 
         void GetStudentIDList(StudentList studentList,params string[] TableInfo);
 
+        void UpdateStudentAttendance(string[] studentIdList,
+            string[] TableInfo,
+            string AttendanceColumn,
+            string SubjectCode,
+            string AttendedClassAddDays,
+            string ClassTakenByTeacherAddDays);
+
     }
 }

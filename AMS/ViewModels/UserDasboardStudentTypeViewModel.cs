@@ -62,6 +62,7 @@ namespace AMS.ViewModels
             }
         }
 
+        // TODO: Null Check Required for the parameter passed to the constructor. 
         public UserDasboardStudentTypeViewModel(StudentUserDetails st_userDetails)
         {
             UserDashboardProfileInfoDetailsList = new ObservableCollection<UserDashboardProfileInfoDetailsListItemViewModel>

@@ -10,14 +10,18 @@ namespace AMS.ViewModels
 {
     public class UserDasboardOfficialTypeViewModel : ViewModelBase, IUserTypeDashboardInterface
     {
-        public string imagepath { get; set; }
+        public string imagepath 
+        { 
+            get;
+            set;
+        }
 
         public ObservableCollection<UserDashboardProfileInfoDetailsListItemViewModel> UserDashboardProfileInfoDetailsList { get; set; }
 
 
         public UserDasboardOfficialTypeViewModel(OfficialUserDetails officialUserDetails)
         {
-            //initialize here
+            imagepath = officialUserDetails.path;
         }
     }
 }

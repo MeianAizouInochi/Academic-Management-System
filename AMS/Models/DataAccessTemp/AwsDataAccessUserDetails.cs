@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using AMS.AMSExceptions;
 using AWS_MANAGEMENT_BRIDGE;
 
 namespace AMS.Models.DataAccessTemp
@@ -153,6 +154,10 @@ namespace AMS.Models.DataAccessTemp
                         throw new AMSExceptions.AMSError_Exceptions(StudentData["ErrorMessage"]);
                     }
                 }
+                else 
+                {
+                    throw new AMSExceptions.AMSError_Exceptions("Connectivity Error!");
+                }
             }
             else if (DataObject is OfficialUserDetails)
             {
@@ -183,11 +188,14 @@ namespace AMS.Models.DataAccessTemp
 
             if (S3DBContext.CreateS3Connection() == 1)
             {
+                //will be later replaced by uploaded profile pic.
                 exc = S3DBContext.GetObjectS3("2020-2024_BTECH_CSE_AB/2026973/OWL.png", "ams-test-bucket1", "./owl.png");
 
                 if (exc[0].Equals("0"))
                 {
-                    MessageBox.Show(exc[1]);
+                    //MessageBox.Show(exc[1]);
+
+                    throw new AMSExceptions.AMSError_Exceptions(exc[1]);
                 }
                 else
                 {
@@ -196,17 +204,8 @@ namespace AMS.Models.DataAccessTemp
                     DataObject.path = Path.GetFullPath(rpath);
                 }
             }
+
             S3DBContext.CloseConnection();
-        }
-
-        public void UploadData(string s)
-        {
-
-        }
-
-        public void UpdateData(string? AwsParam = null)
-        {
-            //do what you need to do
         }
 
         /// <summary>
@@ -223,35 +222,82 @@ namespace AMS.Models.DataAccessTemp
 
             if (DynamoDbContext.CreateDynamoDBConnection() == 1)
             {
-                Result = DynamoDbContext.ScanTable(
-                    $"{TableInfo[(int)StudentLoginInfoType.Batch - 2]}_{TableInfo[(int)StudentLoginInfoType.Branch - 2]}_{TableInfo[(int)StudentLoginInfoType.Course - 2]}_{TableInfo[(int)StudentLoginInfoType.Section - 2]}",
-                    "id");
+                
+                string TableName = $"{TableInfo[(int)StudentLoginInfoType.Batch - 2]}_{TableInfo[(int)StudentLoginInfoType.Course - 2]}_{TableInfo[(int)StudentLoginInfoType.Branch - 2]}_{TableInfo[(int)StudentLoginInfoType.Section - 2]}";
 
-                studentList.StudentIdList = Result;
+                Result = DynamoDbContext.ScanTable(
+                   TableName, 
+                    "id");
+                
+
+                if (Result[0].Equals("0"))
+                {
+                    throw new AMSError_Exceptions(Result[1]);
+                }
+                else 
+                {
+                    studentList.StudentIdList = Result;
+
+                }
             }
             else
             {
-                studentList.StudentIdList = null;
+                throw new AMSError_Exceptions("Connectivity Error!");
+
             }
 
         }
 
-        //Teacher_user/ Teachers: SakshiXXXXXX
+        /// <summary>
+        /// This function updates the attendance of a specific subject of a student.
+        /// It changes 2 values.
+        /// 
+        /// AttendedClassAddDays represents that the student attended the class that day,
+        /// hence the total number of days the student have attended the class is updated by 1.
+        /// 
+        /// ClassTakenByTeacherAddDays represents the addition to the total number of days the class was taken by the teacher.
+        /// 
+        /// The Ratio of the above 2 values provides the % of Attendance in the subject of the student.
+        /// </summary>
+        /// <param name="studentIdList"></param>
+        /// <param name="TableInfo"></param>
+        /// <param name="AttendanceColumn"></param>
+        /// <param name="SubjectCode"></param>
+        /// <param name="AttendedClassAddDays"></param>
+        /// <param name="ClassTakenByTeacherAddDays"></param>
+        /// <exception cref="AMSExceptions.AMSError_Exceptions"></exception>
+        public void UpdateStudentAttendance(
+            string[] studentIdList,
+            string[] TableInfo,
+            string AttendanceColumn,
+            string SubjectCode,
+            string AttendedClassAddDays,
+            string ClassTakenByTeacherAddDays)
+        {
+            DYNAMODB_BRIDGE DynamoDbContext = new DYNAMODB_BRIDGE();
 
-        // TODO: Function to get the list of Students of a particular Batch/Course/Branch/Section,
-        // to get the list of students in a table by their roll no 
-        // use function ScanTable();
-        //  accepted parameters - table name,
-        //      projectExpression (for example if you want the list of students in a table by their roll no i.e id just type id) Example in new line
-        //      ScanTable("tablename","id"); - this will give the list of all students inside a table ,WARNING - DO NOT LEAVE THE SECOND ARGUMENT BLANK 
-        //  The function returns a array of stings in which the first and the second index is the code if the operation was successful or not 
-        //  0th index - 0 or 1 (0 - failed/unsuccessfully) 1(successful)
-        //  1st index - error message ( what happened exactly) 
-        // note: the function returns error in the case when there is no item inside the table of that attribute 
-        // after the second index , you have your data or the list of the students.
-        // Function returns Array of string.
+            if (DynamoDbContext.CreateDynamoDBConnection() == 1)
+            {
+                string[] Result;
 
+                Result = DynamoDbContext.UpdateAttendance(
+                    $"{TableInfo[0]}_{TableInfo[1]}_{TableInfo[2]}_{TableInfo[3]}",
+                    "id",
+                    studentIdList,
+                    AttendanceColumn,
+                    SubjectCode,
+                    AttendedClassAddDays,
+                    ClassTakenByTeacherAddDays
+                    );
 
+                if (Result[0].Equals("0"))
+                {
+                    throw new AMSExceptions.AMSError_Exceptions(Result[1]);
+                }
+
+            }
+            
+        }
 
         // TODO: Function to push the attendance data inside s3.
         // to push attendance data inside s3 
@@ -284,14 +330,14 @@ namespace AMS.Models.DataAccessTemp
 
         // TODO: Function to push the data into the specific items inside dynamoDb.
 
-        // TODO: Function to update attendance data in dynamodb
-        //Example below
-        //string tablename = $"{AWSParams?[(int)StudentLoginInfoType.Batch]}_{AWSParams?[(int)StudentLoginInfoType.Course]}_{AWSParams?[(int)StudentLoginInfoType.Branch]}_{AWSParams?[(int)StudentLoginInfoType.Section]}";
-        //string[] res = DynamoDBContext.UpdateAttendance(tablename, "id", new string[] { "2026973", "2026979" }, "10", "BTCS601-18", "1", "1");
-        //    if (res[0].Equals("0"))
-        //    {
-        //        throw new AMSExceptions.AMSError_Exceptions(res[1]);
-        //    }
+        public void UploadData(string s)
+        {
 
+        }
+
+        public void UpdateData(string? AwsParam = null)
+        {
+            //do what you need to do
+        }
     }
 }
