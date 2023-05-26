@@ -49,7 +49,7 @@ namespace AMS.Commands
                     {
                         AbsentStudents.Add(obj.Id);
                     }
-                }
+                } 
 
                 AwsDataAccessUserDetails awsDataAccessUserDetails = new AwsDataAccessUserDetails();
 
