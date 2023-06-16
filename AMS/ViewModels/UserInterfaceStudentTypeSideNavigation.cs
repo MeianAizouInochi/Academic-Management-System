@@ -21,6 +21,8 @@ namespace AMS.ViewModels
         {
 
             NavigateToDashBoardCommand = new NavigationToDashboardCommand(internalMenuNavigationStore, studentUserDetails);
+
+            NavigateToStudentTimeTableCommand = new NavigationToStudentTimeTableCommand(internalMenuNavigationStore);
             
         }
     }
